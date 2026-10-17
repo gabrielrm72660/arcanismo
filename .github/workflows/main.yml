@@ -15,10 +15,14 @@ jobs:
       - name: Baixar o código do repositório
         uses: actions/checkout@v4
 
-      - name: Extrair arcanismo.zip (se foi enviado compactado)
+      - name: Extrair o zip do mod (qualquer nome)
         run: |
-          if [ -f arcanismo.zip ]; then unzip -o -q arcanismo.zip; fi
-          if [ ! -d src ]; then echo "ERRO: não encontrei a pasta src nem o arcanismo.zip"; exit 1; fi
+          for z in *.zip; do if [ -f "$z" ]; then unzip -o -q "$z" -d extraido; fi; done
+          JAVA=$(find . -path ./.git -prune -o -type d -path '*/src/main/java' -print | head -n 1)
+          if [ -z "$JAVA" ]; then echo "ERRO: não encontrei src/main/java em nenhum lugar"; exit 1; fi
+          RAIZ=${JAVA%/src/main/java}
+          echo "Código do mod encontrado em: $RAIZ"
+          if [ "$RAIZ" != "." ]; then rm -rf src; cp -r "$RAIZ/src" ./src; fi
 
       - name: Instalar Java 25
         uses: actions/setup-java@v4
