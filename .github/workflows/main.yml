@@ -1,0 +1,68 @@
+name: Compilar mod
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  MC_VERSION: "26.1"
+  FORGE_VERSION: "62.0.9"
+
+jobs:
+  compilar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código do repositório
+        uses: actions/checkout@v4
+
+      - name: Extrair arcanismo.zip (se foi enviado compactado)
+        run: |
+          if [ -f arcanismo.zip ]; then unzip -o -q arcanismo.zip; fi
+          if [ ! -d src ]; then echo "ERRO: não encontrei a pasta src nem o arcanismo.zip"; exit 1; fi
+
+      - name: Instalar Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Baixar o MDK do Forge
+        run: |
+          URL="https://maven.minecraftforge.net/net/minecraftforge/forge/${MC_VERSION}-${FORGE_VERSION}/forge-${MC_VERSION}-${FORGE_VERSION}-mdk.zip"
+          echo "Baixando $URL"
+          curl -fL "$URL" -o mdk.zip
+          unzip -q mdk.zip -d mdk
+
+      - name: Colocar o código do mod dentro do MDK
+        run: |
+          rm -rf mdk/src/main/java
+          cp -r src/. mdk/src/
+          cd mdk
+          definir() {
+            if grep -q "^$1=" gradle.properties; then
+              sed -i "s|^$1=.*|$1=$2|" gradle.properties
+            else
+              echo "$1=$2" >> gradle.properties
+            fi
+          }
+          definir mod_id arcanismo
+          definir mod_name Arcanismo
+          definir mod_version 0.1.0
+          definir mod_group_id br.arcanismo
+          definir mod_authors Arcanismo
+          definir mod_description "Magia arcana: aspectos, pesquisa, alquimia e masmorras."
+          definir mod_license "All Rights Reserved"
+
+      - name: Compilar
+        working-directory: mdk
+        run: |
+          chmod +x gradlew
+          ./gradlew build --no-daemon
+
+      - name: Disponibilizar o .jar para download
+        uses: actions/upload-artifact@v4
+        with:
+          name: arcanismo-jar
+          path: |
+            mdk/build/libs/*.jar
+            !mdk/build/libs/*-sources.jar
