@@ -1,0 +1,70 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 1,
+          "data": {
+            "Name": "arcanismo:aglomerado_ar",
+            "Properties": {
+              "facing": "up",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "arcanismo:aglomerado_terra",
+            "Properties": {
+              "facing": "up",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "arcanismo:aglomerado_fogo",
+            "Properties": {
+              "facing": "up",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "arcanismo:aglomerado_agua",
+            "Properties": {
+              "facing": "up",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "arcanismo:aglomerado_ordem",
+            "Properties": {
+              "facing": "up",
+              "waterlogged": "false"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "arcanismo:aglomerado_entropia",
+            "Properties": {
+              "facing": "up",
+              "waterlogged": "false"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

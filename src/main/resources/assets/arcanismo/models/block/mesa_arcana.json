@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "arcanismo:block/mesa_arcana_topo",
+    "side": "arcanismo:block/mesa_arcana_lado",
+    "bottom": "arcanismo:block/mesa_arcana_fundo"
+  }
+}

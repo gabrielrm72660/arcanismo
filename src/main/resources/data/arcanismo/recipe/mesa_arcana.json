@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " C ",
+    "CTC",
+    " C "
+  ],
+  "key": {
+    "C": "#arcanismo:cristais",
+    "T": "minecraft:crafting_table"
+  },
+  "result": {
+    "id": "arcanismo:mesa_arcana",
+    "count": 1
+  }
+}

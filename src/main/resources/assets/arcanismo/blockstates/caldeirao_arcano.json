@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "cheio=false": {
+      "model": "arcanismo:block/caldeirao_arcano"
+    },
+    "cheio=true": {
+      "model": "arcanismo:block/caldeirao_arcano_cheio"
+    }
+  }
+}

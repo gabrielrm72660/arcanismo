@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/cauldron",
+  "textures": {
+    "particle": "arcanismo:block/caldeirao_lado",
+    "top": "arcanismo:block/caldeirao_topo",
+    "bottom": "arcanismo:block/caldeirao_fundo",
+    "side": "arcanismo:block/caldeirao_lado",
+    "inside": "arcanismo:block/caldeirao_dentro"
+  }
+}

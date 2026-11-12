@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "arcanismo:torre_corrompida",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 32,
+    "separation": 12,
+    "salt": 588231047
+  }
+}

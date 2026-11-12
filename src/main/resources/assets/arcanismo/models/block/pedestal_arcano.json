@@ -1,0 +1,106 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "lado": "arcanismo:block/pedestal_arcano",
+    "topo": "arcanismo:block/pedestal_arcano_topo",
+    "particle": "arcanismo:block/pedestal_arcano"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        0,
+        2
+      ],
+      "to": [
+        14,
+        3,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lado"
+        },
+        "south": {
+          "texture": "#lado"
+        },
+        "east": {
+          "texture": "#lado"
+        },
+        "west": {
+          "texture": "#lado"
+        },
+        "up": {
+          "texture": "#topo"
+        },
+        "down": {
+          "texture": "#topo"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        3,
+        5
+      ],
+      "to": [
+        11,
+        12,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lado"
+        },
+        "south": {
+          "texture": "#lado"
+        },
+        "east": {
+          "texture": "#lado"
+        },
+        "west": {
+          "texture": "#lado"
+        },
+        "up": {
+          "texture": "#topo"
+        },
+        "down": {
+          "texture": "#topo"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        12,
+        3
+      ],
+      "to": [
+        13,
+        15,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lado"
+        },
+        "south": {
+          "texture": "#lado"
+        },
+        "east": {
+          "texture": "#lado"
+        },
+        "west": {
+          "texture": "#lado"
+        },
+        "up": {
+          "texture": "#topo"
+        },
+        "down": {
+          "texture": "#topo"
+        }
+      }
+    }
+  ]
+}

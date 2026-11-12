@@ -1,0 +1,47 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "arcanismo:cristal_ar"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "arcanismo:cristal_terra"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "arcanismo:cristal_fogo"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "arcanismo:cristal_agua"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "arcanismo:cristal_ordem"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "arcanismo:cristal_entropia"
+        }
+      ],
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": {
+            "type": "minecraft:uniform",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "function": "minecraft:explosion_decay"
+        }
+      ]
+    }
+  ]
+}

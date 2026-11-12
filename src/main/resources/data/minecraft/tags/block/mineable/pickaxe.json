@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "arcanismo:minerio_arcano",
+    "arcanismo:minerio_arcano_ardosia",
+    "arcanismo:tijolo_arcano",
+    "arcanismo:caldeirao_arcano",
+    "arcanismo:aglomerado_ar",
+    "arcanismo:aglomerado_terra",
+    "arcanismo:aglomerado_fogo",
+    "arcanismo:aglomerado_agua",
+    "arcanismo:aglomerado_ordem",
+    "arcanismo:aglomerado_entropia",
+    "arcanismo:altar_infusao",
+    "arcanismo:pedestal_arcano"
+  ]
+}

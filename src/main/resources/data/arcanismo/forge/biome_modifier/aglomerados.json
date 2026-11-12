@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "arcanismo:aglomerado_chao",
+    "arcanismo:aglomerado_teto"
+  ],
+  "step": "underground_decoration"
+}

@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[62,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="arcanismo"
+version="0.1.0"
+displayName="Arcanismo"
+authors="Arcanismo"
+description='''Magia arcana: aspectos, pesquisa, alquimia no caldeirão, feitiços, vila de magos e masmorras.'''
+
+[[dependencies.arcanismo]]
+    modId="forge"
+    mandatory=true
+    versionRange="[62,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.arcanismo]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[26.1,26.2)"
+    ordering="NONE"
+    side="BOTH"

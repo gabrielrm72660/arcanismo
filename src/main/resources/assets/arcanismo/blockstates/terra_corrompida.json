@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "forca=0": {
+      "model": "arcanismo:block/terra_corrompida"
+    },
+    "forca=1": {
+      "model": "arcanismo:block/terra_corrompida"
+    },
+    "forca=2": {
+      "model": "arcanismo:block/terra_corrompida"
+    },
+    "forca=3": {
+      "model": "arcanismo:block/terra_corrompida"
+    }
+  }
+}

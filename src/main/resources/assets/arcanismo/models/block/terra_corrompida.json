@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "arcanismo:block/terra_corrompida_topo",
+    "side": "arcanismo:block/terra_corrompida_lado",
+    "bottom": "minecraft:block/dirt"
+  }
+}
