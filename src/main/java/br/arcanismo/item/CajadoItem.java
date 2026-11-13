@@ -68,7 +68,7 @@ public class CajadoItem extends Item {
 
     @Override
     public boolean isBarVisible(ItemStack pilha) {
-        return true;
+        return vis(pilha) > 0;
     }
 
     @Override
