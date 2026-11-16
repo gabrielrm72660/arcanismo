@@ -1,0 +1,66 @@
+name: Sondar API do Minecraft
+
+# Lista as classes do Minecraft/Forge e imprime as assinaturas das que estão em probe-classes.txt.
+# O resultado vai para a branch "probe-out". Roda sozinho quando probe-classes.txt muda.
+on:
+  push:
+    paths:
+      - probe-classes.txt
+      - .github/workflows/probe.yml
+
+permissions:
+  contents: write
+
+env:
+  MC_VERSION: "26.1"
+  FORGE_VERSION: "62.0.9"
+
+jobs:
+  sondar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Baixar e preparar o MDK
+        run: |
+          URL="https://maven.minecraftforge.net/net/minecraftforge/forge/${MC_VERSION}-${FORGE_VERSION}/forge-${MC_VERSION}-${FORGE_VERSION}-mdk.zip"
+          curl -fL "$URL" -o mdk.zip
+          unzip -q mdk.zip -d mdk
+          cd mdk && chmod +x gradlew
+          ./gradlew compileJava --no-daemon > ../gradle-probe.log 2>&1 || true
+          tail -n 30 ../gradle-probe.log
+
+      - name: Sondar
+        run: |
+          mkdir -p out/classes out/mdk
+          cp -r mdk/src out/mdk/ 2>/dev/null || true
+          cp mdk/build.gradle mdk/gradle.properties out/mdk/ 2>/dev/null || true
+          tail -n 60 gradle-probe.log > out/gradle-tail.log
+          find / -name '*.jar' -size +1M \( -path '*/.gradle/*' -o -path '*/mdk/*' \) 2>/dev/null > jars.txt
+          : > out/index.tsv
+          while read -r j; do
+            unzip -Z1 "$j" 2>/dev/null | grep '\.class$' | sed "s|\.class$||; s|/|.|g; s|$|\t$j|" >> out/index.tsv
+          done < jars.txt
+          wc -l out/index.tsv
+          while read -r cls; do
+            [ -z "$cls" ] && continue
+            case "$cls" in \#*) continue;; esac
+            jar=$(awk -F'\t' -v c="$cls" '$1==c {print $2; exit}' out/index.tsv)
+            if [ -z "$jar" ]; then echo "NAO ENCONTRADA: $cls" > "out/classes/$cls.txt"; continue; fi
+            javap -p -cp "$jar" "$cls" > "out/classes/$cls.txt" 2>&1 || true
+          done < probe-classes.txt
+          # o índice só com nomes (sem o caminho do jar) para facilitar a busca
+          cut -f1 out/index.tsv | sort -u > out/nomes.txt
+          rm out/index.tsv
+
+      - name: Publicar na branch probe-out
+        run: |
+          cd out
+          git init -q -b probe-out
+          git add -A
+          git -c user.name=ci -c user.email=ci@example.com commit -q -m "sonda"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" HEAD:probe-out
