@@ -15,7 +15,6 @@ import net.minecraft.world.level.EmptyBlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
@@ -101,7 +100,7 @@ public final class Estrutura {
         return fundo;
     }
 
-    /** O timão (a metade de baixo, se for duplo). */
+    /** O timão. */
     public Bloco timao() {
         return timao;
     }
@@ -139,11 +138,8 @@ public final class Estrutura {
                 velas++;
             } else if (bloco instanceof AssentoBlock) {
                 assentos.add(b);
-            } else if (bloco instanceof TimaoBlock) {
-                boolean baixo = b.estado.getValue(TimaoBlock.HALF) == DoubleBlockHalf.LOWER;
-                if (timao == null || (baixo && timao.estado.getValue(TimaoBlock.HALF) != DoubleBlockHalf.LOWER)) {
-                    timao = b;
-                }
+            } else if (bloco instanceof TimaoBlock && timao == null) {
+                timao = b;
             }
         }
         final Bloco ref = timao;
