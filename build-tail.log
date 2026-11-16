@@ -1,0 +1,181 @@
+Downloading https://services.gradle.org/distributions/gradle-9.3.1-bin.zip
+.............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/home/runner/.gradle/wrapper/dists/gradle-9.3.1-bin/23ovyewtku6u96viwx3xl3oks/gradle-9.3.1/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+
+Welcome to Gradle 9.3.1!
+
+Here are the highlights of this release:
+ - Test reporting improvements
+ - Error and warning improvements
+ - Build authoring improvements
+
+For more details see https://docs.gradle.org/9.3.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Parallel Configuration Cache is an incubating feature.
+Configuration on demand is an incubating feature.
+Calculating task graph as no cached configuration is available for tasks: build
+
+> Configure project :
+Minecraft Mavenizer 0.5.21 by Forge Development LLC
+  Output:             /home/runner/work/arcanismo/arcanismo/mdk/.gradle/mavenizer/repo
+  Output JSON:        /home/runner/work/arcanismo/arcanismo/mdk/.gradle/mavenizer/dependencies/default.json
+  Dependencies Only:  false
+  Cache:              /home/runner/.gradle/caches/minecraftforge/forgegradle/mavenizer/caches
+  JDK Cache:          /home/runner/.gradle/caches/minecraftforge/forgegradle/mavenizer/caches
+  Offline:            false
+  Cache Only:         false
+  Ignore Cache:       false
+  Mappings:           auto
+  Foreign Repos:      [https://repo.maven.apache.org/maven2/, https://maven.minecraftforge.net/, https://libraries.minecraft.net/]
+  GradleVariantHack:  true
+  Disable Gradle:     false
+  Stub Jars:          false
+
+Processing Minecraft dependency: net.minecraftforge:forge:26.1-62.0.9
+Using Mappings: official-26.1
+Processing Minecraft Forge (userdev): 26.1-62.0.9
+  Cache miss!
+  java.lang.Exception: Cache miss! Stacktrace for Information Only
+  	at net.minecraftforge.mcmaven.impl.Mavenizer.assertNotCacheOnly(Mavenizer.java:60)
+  	at net.minecraftforge.mcmaven.impl.cache.MavenCache.download(MavenCache.java:271)
+  	at net.minecraftforge.mcmaven.impl.cache.MavenCache.download(MavenCache.java:101)
+  	at net.minecraftforge.mcmaven.impl.repo.forge.Patcher.<init>(Patcher.java:94)
+  	at net.minecraftforge.mcmaven.impl.repo.forge.ForgeRepo.processV3(ForgeRepo.java:257)
+  	at net.minecraftforge.mcmaven.impl.repo.forge.ForgeRepo.process(ForgeRepo.java:144)
+  	at net.minecraftforge.mcmaven.impl.MinecraftMaven.createForge(MinecraftMaven.java:240)
+  	at net.minecraftforge.mcmaven.impl.MinecraftMaven.run(MinecraftMaven.java:119)
+  	at net.minecraftforge.mcmaven.cli.MavenTask.run(MavenTask.java:218)
+  	at net.minecraftforge.mcmaven.cli.Main.run(Main.java:70)
+  	at net.minecraftforge.mcmaven.cli.Main.main(Main.java:23)
+Mappings Zip
+  srg2names[official-26.1][Empty]
+Mappings POM
+  pom[mappings_official]
+Client Extra
+  downloadLauncherManifest
+  downloadVersionJson[26.1]
+  download[26.1][client]
+  extra[client]
+Client Maven POM
+  pom[client-extra]
+Sources
+  stripClient
+  download[26.1][server]
+  extractServer
+  stripServer
+  merge
+  modifyAccess
+  stripSides
+  listLibraries
+  decompile
+  patch
+  patch[forge]
+  downloadSources
+  injectSources[forge]
+  remap[forge][official-26.1][javadoc]
+  remap[forge][official-26.1][javadoc][variants]
+Classes
+  recompile[forge][official-26.1]
+  injectData[forge][official-26.1]
+  injectData[forge][official-26.1][variants]
+Maven POM
+  pom[forge]
+Metadata
+  metadata[forge]
+  metadata[forge][variants]
+Minecraft Maven has finished, took 2:07.418
+
+> Task :processTestResources NO-SOURCE
+> Task :processResources
+
+> Task :compileJava FAILED
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/bloco/TimaoBlock.java:3: error: cannot find symbol
+import br.navegantes.navio.Montador;
+                          ^
+  symbol:   class Montador
+  location: package br.navegantes.navio
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/Navegantes.java:3: error: cannot find symbol
+import br.navegantes.navio.EventosNavio;
+                          ^
+  symbol:   class EventosNavio
+  location: package br.navegantes.navio
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModItens.java:7: error: package br.navegantes.item does not exist
+import br.navegantes.item.ColaItem;
+                         ^
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:4: error: cannot find symbol
+import br.navegantes.navio.NavioEntidade;
+                          ^
+  symbol:   class NavioEntidade
+  location: package br.navegantes.navio
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:5: error: cannot find symbol
+import br.navegantes.navio.PecaInterativa;
+                          ^
+  symbol:   class PecaInterativa
+  location: package br.navegantes.navio
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:17: error: cannot find symbol
+    public static final RegistryObject<EntityType<NavioEntidade>> NAVIO = ENTIDADES.register("navio",
+                                                  ^
+  symbol:   class NavioEntidade
+  location: class ModEntidades
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:26: error: cannot find symbol
+    public static final RegistryObject<EntityType<PecaInterativa>> PECA = ENTIDADES.register("peca_navio",
+                                                  ^
+  symbol:   class PecaInterativa
+  location: class ModEntidades
+7 errors
+
+[Incubating] Problems report is available at: file:///home/runner/work/arcanismo/arcanismo/mdk/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/bloco/TimaoBlock.java:3: error: cannot find symbol
+  import br.navegantes.navio.Montador;
+                            ^
+    symbol:   class Montador
+    location: package br.navegantes.navio
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/Navegantes.java:3: error: cannot find symbol
+  import br.navegantes.navio.EventosNavio;
+                            ^
+    symbol:   class EventosNavio
+    location: package br.navegantes.navio
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:4: error: cannot find symbol
+  import br.navegantes.navio.NavioEntidade;
+                            ^
+    symbol:   class NavioEntidade
+    location: package br.navegantes.navio
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:5: error: cannot find symbol
+  import br.navegantes.navio.PecaInterativa;
+                            ^
+    symbol:   class PecaInterativa
+    location: package br.navegantes.navio
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:17: error: cannot find symbol
+      public static final RegistryObject<EntityType<NavioEntidade>> NAVIO = ENTIDADES.register("navio",
+                                                    ^
+    symbol:   class NavioEntidade
+    location: class ModEntidades
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:26: error: cannot find symbol
+      public static final RegistryObject<EntityType<PecaInterativa>> PECA = ENTIDADES.register("peca_navio",
+                                                    ^
+    symbol:   class PecaInterativa
+    location: class ModEntidades
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModItens.java:7: error: package br.navegantes.item does not exist
+  import br.navegantes.item.ColaItem;
+                           ^
+  7 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2m 39s
+2 actionable tasks: 2 executed
+Configuration cache entry stored.

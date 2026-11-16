@@ -1,0 +1,80 @@
+
+> Task :compileJava FAILED
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/bloco/TimaoBlock.java:3: error: cannot find symbol
+import br.navegantes.navio.Montador;
+                          ^
+  symbol:   class Montador
+  location: package br.navegantes.navio
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/Navegantes.java:3: error: cannot find symbol
+import br.navegantes.navio.EventosNavio;
+                          ^
+  symbol:   class EventosNavio
+  location: package br.navegantes.navio
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModItens.java:7: error: package br.navegantes.item does not exist
+import br.navegantes.item.ColaItem;
+                         ^
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:4: error: cannot find symbol
+import br.navegantes.navio.NavioEntidade;
+                          ^
+  symbol:   class NavioEntidade
+  location: package br.navegantes.navio
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:5: error: cannot find symbol
+import br.navegantes.navio.PecaInterativa;
+                          ^
+  symbol:   class PecaInterativa
+  location: package br.navegantes.navio
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:17: error: cannot find symbol
+    public static final RegistryObject<EntityType<NavioEntidade>> NAVIO = ENTIDADES.register("navio",
+                                                  ^
+  symbol:   class NavioEntidade
+  location: class ModEntidades
+/home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:26: error: cannot find symbol
+    public static final RegistryObject<EntityType<PecaInterativa>> PECA = ENTIDADES.register("peca_navio",
+                                                  ^
+  symbol:   class PecaInterativa
+  location: class ModEntidades
+--
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/bloco/TimaoBlock.java:3: error: cannot find symbol
+  import br.navegantes.navio.Montador;
+                            ^
+    symbol:   class Montador
+    location: package br.navegantes.navio
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/Navegantes.java:3: error: cannot find symbol
+  import br.navegantes.navio.EventosNavio;
+                            ^
+    symbol:   class EventosNavio
+    location: package br.navegantes.navio
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:4: error: cannot find symbol
+  import br.navegantes.navio.NavioEntidade;
+                            ^
+    symbol:   class NavioEntidade
+    location: package br.navegantes.navio
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:5: error: cannot find symbol
+  import br.navegantes.navio.PecaInterativa;
+                            ^
+    symbol:   class PecaInterativa
+    location: package br.navegantes.navio
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:17: error: cannot find symbol
+      public static final RegistryObject<EntityType<NavioEntidade>> NAVIO = ENTIDADES.register("navio",
+                                                    ^
+    symbol:   class NavioEntidade
+    location: class ModEntidades
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModEntidades.java:26: error: cannot find symbol
+      public static final RegistryObject<EntityType<PecaInterativa>> PECA = ENTIDADES.register("peca_navio",
+                                                    ^
+    symbol:   class PecaInterativa
+    location: class ModEntidades
+  /home/runner/work/arcanismo/arcanismo/mdk/src/main/java/br/navegantes/registro/ModItens.java:7: error: package br.navegantes.item does not exist
+  import br.navegantes.item.ColaItem;
+                           ^
+  7 errors
+
+--
+
+BUILD FAILED in 2m 39s
+2 actionable tasks: 2 executed
+Configuration cache entry stored.
