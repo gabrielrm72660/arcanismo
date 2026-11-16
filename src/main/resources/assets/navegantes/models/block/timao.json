@@ -1,0 +1,380 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "madeira": "minecraft:block/oak_planks",
+    "roda": "minecraft:block/dark_oak_planks",
+    "particle": "minecraft:block/dark_oak_planks"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        3,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#madeira"
+        },
+        "south": {
+          "texture": "#madeira"
+        },
+        "east": {
+          "texture": "#madeira"
+        },
+        "west": {
+          "texture": "#madeira"
+        },
+        "up": {
+          "texture": "#madeira"
+        },
+        "down": {
+          "texture": "#madeira"
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        3,
+        6.5
+      ],
+      "to": [
+        9.5,
+        10,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#madeira"
+        },
+        "south": {
+          "texture": "#madeira"
+        },
+        "east": {
+          "texture": "#madeira"
+        },
+        "west": {
+          "texture": "#madeira"
+        },
+        "up": {
+          "texture": "#madeira"
+        },
+        "down": {
+          "texture": "#madeira"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        5,
+        3
+      ],
+      "to": [
+        9,
+        15,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#roda"
+        },
+        "south": {
+          "texture": "#roda"
+        },
+        "east": {
+          "texture": "#roda"
+        },
+        "west": {
+          "texture": "#roda"
+        },
+        "up": {
+          "texture": "#roda"
+        },
+        "down": {
+          "texture": "#roda"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        9,
+        3
+      ],
+      "to": [
+        13,
+        11,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#roda"
+        },
+        "south": {
+          "texture": "#roda"
+        },
+        "east": {
+          "texture": "#roda"
+        },
+        "west": {
+          "texture": "#roda"
+        },
+        "up": {
+          "texture": "#roda"
+        },
+        "down": {
+          "texture": "#roda"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        5,
+        3
+      ],
+      "to": [
+        9,
+        15,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#roda"
+        },
+        "south": {
+          "texture": "#roda"
+        },
+        "east": {
+          "texture": "#roda"
+        },
+        "west": {
+          "texture": "#roda"
+        },
+        "up": {
+          "texture": "#roda"
+        },
+        "down": {
+          "texture": "#roda"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          10,
+          4
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        7,
+        5,
+        3
+      ],
+      "to": [
+        9,
+        15,
+        5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#roda"
+        },
+        "south": {
+          "texture": "#roda"
+        },
+        "east": {
+          "texture": "#roda"
+        },
+        "west": {
+          "texture": "#roda"
+        },
+        "up": {
+          "texture": "#roda"
+        },
+        "down": {
+          "texture": "#roda"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          10,
+          4
+        ],
+        "axis": "z",
+        "angle": -45
+      }
+    },
+    {
+      "from": [
+        7.25,
+        9.25,
+        4.9
+      ],
+      "to": [
+        8.75,
+        10.75,
+        6.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#madeira"
+        },
+        "south": {
+          "texture": "#madeira"
+        },
+        "east": {
+          "texture": "#madeira"
+        },
+        "west": {
+          "texture": "#madeira"
+        },
+        "up": {
+          "texture": "#madeira"
+        },
+        "down": {
+          "texture": "#madeira"
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        14.5,
+        2.5
+      ],
+      "to": [
+        9.5,
+        16,
+        5.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#roda"
+        },
+        "south": {
+          "texture": "#roda"
+        },
+        "east": {
+          "texture": "#roda"
+        },
+        "west": {
+          "texture": "#roda"
+        },
+        "up": {
+          "texture": "#roda"
+        },
+        "down": {
+          "texture": "#roda"
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        4,
+        2.5
+      ],
+      "to": [
+        9.5,
+        5.5,
+        5.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#roda"
+        },
+        "south": {
+          "texture": "#roda"
+        },
+        "east": {
+          "texture": "#roda"
+        },
+        "west": {
+          "texture": "#roda"
+        },
+        "up": {
+          "texture": "#roda"
+        },
+        "down": {
+          "texture": "#roda"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        8.5,
+        2.5
+      ],
+      "to": [
+        3.5,
+        11.5,
+        5.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#roda"
+        },
+        "south": {
+          "texture": "#roda"
+        },
+        "east": {
+          "texture": "#roda"
+        },
+        "west": {
+          "texture": "#roda"
+        },
+        "up": {
+          "texture": "#roda"
+        },
+        "down": {
+          "texture": "#roda"
+        }
+      }
+    },
+    {
+      "from": [
+        12.5,
+        8.5,
+        2.5
+      ],
+      "to": [
+        14,
+        11.5,
+        5.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#roda"
+        },
+        "south": {
+          "texture": "#roda"
+        },
+        "east": {
+          "texture": "#roda"
+        },
+        "west": {
+          "texture": "#roda"
+        },
+        "up": {
+          "texture": "#roda"
+        },
+        "down": {
+          "texture": "#roda"
+        }
+      }
+    }
+  ]
+}

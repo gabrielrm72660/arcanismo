@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "navegantes:block/vela"
+    },
+    "axis=x": {
+      "model": "navegantes:block/vela",
+      "y": 90
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "lã": "minecraft:block/white_wool",
+    "particle": "minecraft:block/white_wool"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        7
+      ],
+      "to": [
+        16,
+        16,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lã"
+        },
+        "south": {
+          "texture": "#lã"
+        },
+        "east": {
+          "texture": "#lã"
+        },
+        "west": {
+          "texture": "#lã"
+        },
+        "up": {
+          "texture": "#lã"
+        },
+        "down": {
+          "texture": "#lã"
+        }
+      }
+    }
+  ]
+}

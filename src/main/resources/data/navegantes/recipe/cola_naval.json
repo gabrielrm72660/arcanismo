@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:slime_ball",
+    "minecraft:dried_kelp"
+  ],
+  "result": {
+    "id": "navegantes:cola_naval",
+    "count": 2
+  }
+}

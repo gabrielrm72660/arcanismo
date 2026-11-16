@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "WW",
+    "WW",
+    "S "
+  ],
+  "key": {
+    "W": "#minecraft:wool",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "navegantes:vela",
+    "count": 2
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "navegantes:block/timao"
+    },
+    "facing=east": {
+      "model": "navegantes:block/timao",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "navegantes:block/timao",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "navegantes:block/timao",
+      "y": 270
+    }
+  }
+}
