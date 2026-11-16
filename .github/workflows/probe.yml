@@ -36,11 +36,13 @@ jobs:
 
       - name: Sondar
         run: |
+          set +e
+          set +o pipefail
           mkdir -p out/classes out/mdk
           cp -r mdk/src out/mdk/ 2>/dev/null || true
           cp mdk/build.gradle mdk/gradle.properties out/mdk/ 2>/dev/null || true
           tail -n 60 gradle-probe.log > out/gradle-tail.log
-          find / -name '*.jar' -size +1M \( -path '*/.gradle/*' -o -path '*/mdk/*' \) 2>/dev/null > jars.txt
+          find "$HOME/.gradle" mdk -name '*.jar' -size +1M 2>/dev/null > jars.txt
           : > out/index.tsv
           while read -r j; do
             unzip -Z1 "$j" 2>/dev/null | grep '\.class$' | sed "s|\.class$||; s|/|.|g; s|$|\t$j|" >> out/index.tsv
