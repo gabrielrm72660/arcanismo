@@ -16,7 +16,7 @@ import net.minecraftforge.fml.loading.FMLLoader;
  *  1. Construa a estrutura na água e cole os blocos com a Cola Naval.
  *  2. Coloque o Timão: a estrutura colada vira um navio.
  *  3. Alimente a Fornalha a Vapor com carvão ou erga Velas para ganhar velocidade.
- *  4. Clique no Timão para guiar (W/A/S/D). Agachar lança ou recolhe a âncora.
+ *  4. Clique no Timão para guiar (W/A/S/D). Ctrl lança ou recolhe a âncora; Shift sai do timão.
  */
 @Mod(Navegantes.MODID)
 public final class Navegantes {

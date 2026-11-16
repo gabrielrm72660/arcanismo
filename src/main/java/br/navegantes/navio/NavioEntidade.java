@@ -81,9 +81,7 @@ public class NavioEntidade extends Entity {
     private float giro;
     private double velVertical;
     private int[] combustivel = new int[0];
-    private boolean shiftAnterior;
-    private boolean saltoAnterior;
-    private boolean permitirSair;
+    private boolean ctrlAnterior;
     private int semAgua;
     private int avisoSemMotor;
     private double[][] amostras = new double[0][];
@@ -241,10 +239,6 @@ public class NavioEntidade extends Entity {
         return getPassengers().isEmpty();
     }
 
-    public boolean podeDesmontar(Entity quem) {
-        return permitirSair || isRemoved() || !(quem instanceof Player);
-    }
-
     // ------------------------------------------------------------------ tick
 
     @Override
@@ -277,17 +271,11 @@ public class NavioEntidade extends Entity {
 
         ServerPlayer piloto = pilotoAtual();
         Input entrada = piloto != null ? piloto.getLastClientInput() : Input.EMPTY;
-        if (piloto != null) {
-            if (entrada.jump() && !saltoAnterior) {
-                sair(piloto);
-                piloto = null;
-                entrada = Input.EMPTY;
-            } else if (entrada.shift() && !shiftAnterior) {
-                alternarAncora(piloto);
-            }
+        // Ctrl lança/recolhe a âncora; Shift sai do timão (o próprio jogo cuida disso).
+        if (piloto != null && entrada.sprint() && !ctrlAnterior) {
+            alternarAncora(piloto);
         }
-        shiftAnterior = entrada.shift();
-        saltoAnterior = entrada.jump();
+        ctrlAnterior = entrada.sprint();
 
         boolean ancorado = ancora();
         boolean frente = entrada.forward() && !entrada.backward();
@@ -517,9 +505,8 @@ public class NavioEntidade extends Entity {
                 return;
             }
             if (jogador.startRiding(this)) {
-                shiftAnterior = true;
-                saltoAnterior = true;
-                Mensagens.chat(jogador, "No timão: W/S acelera, A/D vira, Shift lança a âncora, Espaço sai. "
+                ctrlAnterior = true;
+                Mensagens.chat(jogador, "No timão: W/S acelera, A/D vira, Ctrl lança/recolhe a âncora, Shift sai. "
                         + "Segure a Cola Naval e agache clicando no timão para desmontar o navio.");
             }
             return;
@@ -547,15 +534,6 @@ public class NavioEntidade extends Entity {
         getEntityData().set(DADOS_ANCORA, nova);
         Mensagens.barra(jogador, nova ? "Âncora lançada!" : "Âncora recolhida.");
         level().playSound(null, blockPosition(), SoundEvents.ANVIL_PLACE, SoundSource.NEUTRAL, 0.6f, nova ? 0.8f : 1.4f);
-    }
-
-    private void sair(ServerPlayer jogador) {
-        permitirSair = true;
-        try {
-            jogador.stopRiding();
-        } finally {
-            permitirSair = false;
-        }
     }
 
     private int combustivelTotal() {
@@ -744,7 +722,6 @@ public class NavioEntidade extends Entity {
         int bz = Mth.floor(getZ());
         int by = (int) Math.round(getY());
 
-        permitirSair = true;
         ejectPassengers();
 
         List<BlockPos> postos = new ArrayList<>();
