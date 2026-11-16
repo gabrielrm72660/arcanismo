@@ -1,0 +1,4 @@
+Compiled from "TickEvent.java"
+public interface net.minecraftforge.event.TickEvent$PlayerTickEvent extends net.minecraftforge.event.TickEvent {
+  public abstract net.minecraftforge.fml.LogicalSide side();
+}

@@ -1,0 +1,6 @@
+Compiled from "BlockDisplayEntityRenderState.java"
+public class net.minecraft.client.renderer.entity.state.BlockDisplayEntityRenderState extends net.minecraft.client.renderer.entity.state.DisplayEntityRenderState {
+  public final net.minecraft.client.renderer.block.BlockModelRenderState blockModel;
+  public net.minecraft.client.renderer.entity.state.BlockDisplayEntityRenderState();
+  public boolean hasSubState();
+}

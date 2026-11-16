@@ -1,0 +1,7 @@
+Compiled from "BlockAndTintGetter.java"
+public interface net.minecraft.client.renderer.block.BlockAndTintGetter extends net.minecraft.world.level.BlockAndLightGetter {
+  public static final net.minecraft.client.renderer.block.BlockAndTintGetter EMPTY;
+  public abstract net.minecraft.world.level.CardinalLighting cardinalLighting();
+  public abstract int getBlockTint(net.minecraft.core.BlockPos, net.minecraft.world.level.ColorResolver);
+  static {};
+}

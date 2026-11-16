@@ -1,0 +1,11 @@
+Compiled from "SubmitNodeStorage.java"
+public final class net.minecraft.client.renderer.SubmitNodeStorage$MovingBlockSubmit extends java.lang.Record {
+  private final org.joml.Matrix4fc pose;
+  private final net.minecraft.client.renderer.block.MovingBlockRenderState movingBlockRenderState;
+  public net.minecraft.client.renderer.SubmitNodeStorage$MovingBlockSubmit(org.joml.Matrix4fc, net.minecraft.client.renderer.block.MovingBlockRenderState);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public org.joml.Matrix4fc pose();
+  public net.minecraft.client.renderer.block.MovingBlockRenderState movingBlockRenderState();
+}

@@ -1,0 +1,12 @@
+Compiled from "FallingBlockRenderer.java"
+public class net.minecraft.client.renderer.entity.FallingBlockRenderer extends net.minecraft.client.renderer.entity.EntityRenderer<net.minecraft.world.entity.item.FallingBlockEntity, net.minecraft.client.renderer.entity.state.FallingBlockRenderState> {
+  public net.minecraft.client.renderer.entity.FallingBlockRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context);
+  public boolean shouldRender(net.minecraft.world.entity.item.FallingBlockEntity, net.minecraft.client.renderer.culling.Frustum, double, double, double);
+  public void submit(net.minecraft.client.renderer.entity.state.FallingBlockRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+  public net.minecraft.client.renderer.entity.state.FallingBlockRenderState createRenderState();
+  public void extractRenderState(net.minecraft.world.entity.item.FallingBlockEntity, net.minecraft.client.renderer.entity.state.FallingBlockRenderState, float);
+  public void extractRenderState(net.minecraft.world.entity.Entity, net.minecraft.client.renderer.entity.state.EntityRenderState, float);
+  public net.minecraft.client.renderer.entity.state.EntityRenderState createRenderState();
+  public void submit(net.minecraft.client.renderer.entity.state.EntityRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+  public boolean shouldRender(net.minecraft.world.entity.Entity, net.minecraft.client.renderer.culling.Frustum, double, double, double);
+}

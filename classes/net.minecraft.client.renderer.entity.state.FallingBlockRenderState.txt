@@ -1,0 +1,5 @@
+Compiled from "FallingBlockRenderState.java"
+public class net.minecraft.client.renderer.entity.state.FallingBlockRenderState extends net.minecraft.client.renderer.entity.state.EntityRenderState {
+  public final net.minecraft.client.renderer.block.MovingBlockRenderState movingBlockRenderState;
+  public net.minecraft.client.renderer.entity.state.FallingBlockRenderState();
+}

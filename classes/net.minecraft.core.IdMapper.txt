@@ -1,0 +1,15 @@
+Compiled from "IdMapper.java"
+public class net.minecraft.core.IdMapper<T> implements net.minecraft.core.IdMap<T> {
+  protected int nextId;
+  protected final it.unimi.dsi.fastutil.objects.Reference2IntMap<T> tToId;
+  protected final java.util.List<T> idToT;
+  public net.minecraft.core.IdMapper();
+  public net.minecraft.core.IdMapper(int);
+  public void addMapping(T, int);
+  public void add(T);
+  public int getId(T);
+  public final T byId(int);
+  public java.util.Iterator<T> iterator();
+  public boolean contains(int);
+  public int size();
+}

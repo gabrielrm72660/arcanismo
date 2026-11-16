@@ -1,0 +1,59 @@
+  public net.minecraft.client.renderer.entity.FallingBlockRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context);
+         2: invokespecial #1                  // Method net/minecraft/client/renderer/entity/EntityRenderer."<init>":(Lnet/minecraft/client/renderer/entity/EntityRendererProvider$Context;)V
+         6: ldc           #7                  // float 0.5f
+         8: putfield      #8                  // Field shadowRadius:F
+  public boolean shouldRender(net.minecraft.world.entity.item.FallingBlockEntity, net.minecraft.client.renderer.culling.Frustum, double, double, double);
+         8: invokespecial #14                 // Method net/minecraft/client/renderer/entity/EntityRenderer.shouldRender:(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z
+        19: invokevirtual #18                 // Method net/minecraft/world/entity/item/FallingBlockEntity.getBlockState:()Lnet/minecraft/world/level/block/state/BlockState;
+        23: invokevirtual #24                 // Method net/minecraft/world/entity/item/FallingBlockEntity.level:()Lnet/minecraft/world/level/Level;
+        27: invokevirtual #28                 // Method net/minecraft/world/entity/item/FallingBlockEntity.blockPosition:()Lnet/minecraft/core/BlockPos;
+        30: invokevirtual #32                 // Method net/minecraft/world/level/Level.getBlockState:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;
+  public void submit(net.minecraft.client.renderer.entity.state.FallingBlockRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+         1: getfield      #37                 // Field net/minecraft/client/renderer/entity/state/FallingBlockRenderState.movingBlockRenderState:Lnet/minecraft/client/renderer/block/MovingBlockRenderState;
+         4: getfield      #43                 // Field net/minecraft/client/renderer/block/MovingBlockRenderState.blockState:Lnet/minecraft/world/level/block/state/BlockState;
+        11: invokevirtual #49                 // Method net/minecraft/world/level/block/state/BlockState.getRenderShape:()Lnet/minecraft/world/level/block/RenderShape;
+        14: getstatic     #55                 // Field net/minecraft/world/level/block/RenderShape.MODEL:Lnet/minecraft/world/level/block/RenderShape;
+        21: invokevirtual #61                 // Method com/mojang/blaze3d/vertex/PoseStack.pushPose:()V
+        25: ldc2_w        #67                 // double -0.5d
+        29: ldc2_w        #67                 // double -0.5d
+        32: invokevirtual #69                 // Method com/mojang/blaze3d/vertex/PoseStack.translate:(DDD)V
+        38: getfield      #37                 // Field net/minecraft/client/renderer/entity/state/FallingBlockRenderState.movingBlockRenderState:Lnet/minecraft/client/renderer/block/MovingBlockRenderState;
+        41: invokeinterface #73,  3           // InterfaceMethod net/minecraft/client/renderer/SubmitNodeCollector.submitMovingBlock:(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/block/MovingBlockRenderState;)V
+        47: invokevirtual #79                 // Method com/mojang/blaze3d/vertex/PoseStack.popPose:()V
+        56: invokespecial #82                 // Method net/minecraft/client/renderer/entity/EntityRenderer.submit:(Lnet/minecraft/client/renderer/entity/state/EntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V
+  public net.minecraft.client.renderer.entity.state.FallingBlockRenderState createRenderState();
+         0: new           #38                 // class net/minecraft/client/renderer/entity/state/FallingBlockRenderState
+         4: invokespecial #86                 // Method net/minecraft/client/renderer/entity/state/FallingBlockRenderState."<init>":()V
+  public void extractRenderState(net.minecraft.world.entity.item.FallingBlockEntity, net.minecraft.client.renderer.entity.state.FallingBlockRenderState, float);
+         4: invokespecial #88                 // Method net/minecraft/client/renderer/entity/EntityRenderer.extractRenderState:(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/client/renderer/entity/state/EntityRenderState;F)V
+         8: invokevirtual #92                 // Method net/minecraft/world/entity/item/FallingBlockEntity.getX:()D
+        12: invokevirtual #96                 // Method net/minecraft/world/entity/item/FallingBlockEntity.getBoundingBox:()Lnet/minecraft/world/phys/AABB;
+        15: getfield      #100                // Field net/minecraft/world/phys/AABB.maxY:D
+        19: invokevirtual #106                // Method net/minecraft/world/entity/item/FallingBlockEntity.getZ:()D
+        22: invokestatic  #109                // Method net/minecraft/core/BlockPos.containing:(DDD)Lnet/minecraft/core/BlockPos;
+        28: getfield      #37                 // Field net/minecraft/client/renderer/entity/state/FallingBlockRenderState.movingBlockRenderState:Lnet/minecraft/client/renderer/block/MovingBlockRenderState;
+        32: invokevirtual #115                // Method net/minecraft/world/entity/item/FallingBlockEntity.getStartPos:()Lnet/minecraft/core/BlockPos;
+        35: putfield      #118                // Field net/minecraft/client/renderer/block/MovingBlockRenderState.randomSeedPos:Lnet/minecraft/core/BlockPos;
+        39: getfield      #37                 // Field net/minecraft/client/renderer/entity/state/FallingBlockRenderState.movingBlockRenderState:Lnet/minecraft/client/renderer/block/MovingBlockRenderState;
+        44: putfield      #122                // Field net/minecraft/client/renderer/block/MovingBlockRenderState.blockPos:Lnet/minecraft/core/BlockPos;
+        48: getfield      #37                 // Field net/minecraft/client/renderer/entity/state/FallingBlockRenderState.movingBlockRenderState:Lnet/minecraft/client/renderer/block/MovingBlockRenderState;
+        52: invokevirtual #18                 // Method net/minecraft/world/entity/item/FallingBlockEntity.getBlockState:()Lnet/minecraft/world/level/block/state/BlockState;
+        55: putfield      #43                 // Field net/minecraft/client/renderer/block/MovingBlockRenderState.blockState:Lnet/minecraft/world/level/block/state/BlockState;
+        59: invokevirtual #24                 // Method net/minecraft/world/entity/item/FallingBlockEntity.level:()Lnet/minecraft/world/level/Level;
+        80: getfield      #37                 // Field net/minecraft/client/renderer/entity/state/FallingBlockRenderState.movingBlockRenderState:Lnet/minecraft/client/renderer/block/MovingBlockRenderState;
+        87: invokevirtual #127                // Method net/minecraft/client/multiplayer/ClientLevel.getBiome:(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/Holder;
+        90: putfield      #131                // Field net/minecraft/client/renderer/block/MovingBlockRenderState.biome:Lnet/minecraft/core/Holder;
+        94: getfield      #37                 // Field net/minecraft/client/renderer/entity/state/FallingBlockRenderState.movingBlockRenderState:Lnet/minecraft/client/renderer/block/MovingBlockRenderState;
+        99: invokevirtual #135                // Method net/minecraft/client/multiplayer/ClientLevel.cardinalLighting:()Lnet/minecraft/world/level/CardinalLighting;
+       102: putfield      #139                // Field net/minecraft/client/renderer/block/MovingBlockRenderState.cardinalLighting:Lnet/minecraft/world/level/CardinalLighting;
+       106: getfield      #37                 // Field net/minecraft/client/renderer/entity/state/FallingBlockRenderState.movingBlockRenderState:Lnet/minecraft/client/renderer/block/MovingBlockRenderState;
+       111: invokevirtual #142                // Method net/minecraft/client/multiplayer/ClientLevel.getLightEngine:()Lnet/minecraft/world/level/lighting/LevelLightEngine;
+       114: putfield      #146                // Field net/minecraft/client/renderer/block/MovingBlockRenderState.lightEngine:Lnet/minecraft/world/level/lighting/LevelLightEngine;
+  public void extractRenderState(net.minecraft.world.entity.Entity, net.minecraft.client.renderer.entity.state.EntityRenderState, float);
+        10: invokevirtual #150                // Method extractRenderState:(Lnet/minecraft/world/entity/item/FallingBlockEntity;Lnet/minecraft/client/renderer/entity/state/FallingBlockRenderState;F)V
+  public net.minecraft.client.renderer.entity.state.EntityRenderState createRenderState();
+         1: invokevirtual #153                // Method createRenderState:()Lnet/minecraft/client/renderer/entity/state/FallingBlockRenderState;
+  public void submit(net.minecraft.client.renderer.entity.state.EntityRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+         9: invokevirtual #157                // Method submit:(Lnet/minecraft/client/renderer/entity/state/FallingBlockRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V
+  public boolean shouldRender(net.minecraft.world.entity.Entity, net.minecraft.client.renderer.culling.Frustum, double, double, double);
+        11: invokevirtual #160                // Method shouldRender:(Lnet/minecraft/world/entity/item/FallingBlockEntity;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z

@@ -1,0 +1,20 @@
+Compiled from "Axis.java"
+public interface com.mojang.math.Axis {
+  public static final com.mojang.math.Axis XN;
+  public static final com.mojang.math.Axis XP;
+  public static final com.mojang.math.Axis YN;
+  public static final com.mojang.math.Axis YP;
+  public static final com.mojang.math.Axis ZN;
+  public static final com.mojang.math.Axis ZP;
+  public static com.mojang.math.Axis of(org.joml.Vector3f);
+  public abstract org.joml.Quaternionf rotation(float);
+  public default org.joml.Quaternionf rotationDegrees(float);
+  private static org.joml.Quaternionf lambda$of$0(org.joml.Vector3f, float);
+  private static org.joml.Quaternionf lambda$static$5(float);
+  private static org.joml.Quaternionf lambda$static$4(float);
+  private static org.joml.Quaternionf lambda$static$3(float);
+  private static org.joml.Quaternionf lambda$static$2(float);
+  private static org.joml.Quaternionf lambda$static$1(float);
+  private static org.joml.Quaternionf lambda$static$0(float);
+  static {};
+}

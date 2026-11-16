@@ -1,0 +1,30 @@
+Compiled from "ModelBlockRenderer.java"
+public class net.minecraft.client.renderer.block.ModelBlockRenderer {
+  private static final net.minecraft.core.Direction[] DIRECTIONS;
+  private final net.minecraft.client.renderer.block.BlockModelLighter lighter;
+  private final boolean ambientOcclusion;
+  private final boolean cull;
+  private final net.minecraft.client.color.block.BlockColors blockColors;
+  private final net.minecraft.util.RandomSource random;
+  private final java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart> parts;
+  private final net.minecraft.core.BlockPos$MutableBlockPos scratchPos;
+  private final com.mojang.blaze3d.vertex.QuadInstance quadInstance;
+  private int tintCacheIndex;
+  private int tintCacheValue;
+  private boolean tintSourcesInitialized;
+  private final java.util.List<net.minecraft.client.color.block.BlockTintSource> tintSources;
+  private final it.unimi.dsi.fastutil.ints.IntList computedTintValues;
+  public net.minecraft.client.renderer.block.ModelBlockRenderer(boolean, boolean, net.minecraft.client.color.block.BlockColors);
+  public static boolean forceOpaque(boolean, net.minecraft.world.level.block.state.BlockState);
+  public void tesselateBlock(net.minecraft.client.renderer.block.BlockQuadOutput, float, float, float, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel, long);
+  public void tesselateBlock(net.minecraft.client.renderer.block.BlockQuadOutput, float, float, float, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.dispatch.BlockStateModel, long, net.minecraftforge.client.model.data.ModelData);
+  private void configureTintCache(net.minecraft.world.level.block.state.BlockState);
+  private void resetTintCache();
+  private void tesselateAmbientOcclusion(net.minecraft.client.renderer.block.BlockQuadOutput, float, float, float, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
+  private void tesselateFlat(net.minecraft.client.renderer.block.BlockQuadOutput, float, float, float, java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos);
+  private boolean shouldRenderFace(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.Direction, net.minecraft.core.BlockPos);
+  private void putQuadWithTint(net.minecraft.client.renderer.block.BlockQuadOutput, float, float, float, net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.client.resources.model.geometry.BakedQuad);
+  private int getTintColor(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, int);
+  private int computeTintColor(net.minecraft.client.renderer.block.BlockAndTintGetter, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, int);
+  static {};
+}

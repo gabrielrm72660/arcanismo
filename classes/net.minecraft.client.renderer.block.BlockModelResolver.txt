@@ -1,0 +1,8 @@
+Compiled from "BlockModelResolver.java"
+public class net.minecraft.client.renderer.block.BlockModelResolver {
+  private static final long MODEL_SEED;
+  private final net.minecraft.client.resources.model.ModelManager modelManager;
+  public net.minecraft.client.renderer.block.BlockModelResolver(net.minecraft.client.resources.model.ModelManager);
+  public void update(net.minecraft.client.renderer.block.BlockModelRenderState, net.minecraft.world.level.block.state.BlockState, net.minecraft.client.renderer.block.model.BlockDisplayContext);
+  public void updateForItemFrame(net.minecraft.client.renderer.block.BlockModelRenderState, boolean, boolean);
+}

@@ -1,0 +1,14 @@
+Compiled from "TickEvent.java"
+public final class net.minecraftforge.event.TickEvent$PlayerTickEvent$Post extends java.lang.Record implements net.minecraftforge.eventbus.api.event.RecordEvent,net.minecraftforge.event.TickEvent$PlayerTickEvent {
+  private final net.minecraft.world.entity.player.Player player;
+  private final net.minecraftforge.fml.LogicalSide side;
+  public static final net.minecraftforge.eventbus.api.bus.EventBus<net.minecraftforge.event.TickEvent$PlayerTickEvent$Post> BUS;
+  public net.minecraftforge.event.TickEvent$PlayerTickEvent$Post(net.minecraft.world.entity.player.Player);
+  public net.minecraftforge.event.TickEvent$PlayerTickEvent$Post(net.minecraft.world.entity.player.Player, net.minecraftforge.fml.LogicalSide);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.world.entity.player.Player player();
+  public net.minecraftforge.fml.LogicalSide side();
+  static {};
+}

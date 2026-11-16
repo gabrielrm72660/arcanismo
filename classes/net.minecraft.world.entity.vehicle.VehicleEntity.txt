@@ -1,0 +1,23 @@
+Compiled from "VehicleEntity.java"
+public abstract class net.minecraft.world.entity.vehicle.VehicleEntity extends net.minecraft.world.entity.Entity {
+  protected static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Integer> DATA_ID_HURT;
+  protected static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Integer> DATA_ID_HURTDIR;
+  protected static final net.minecraft.network.syncher.EntityDataAccessor<java.lang.Float> DATA_ID_DAMAGE;
+  public net.minecraft.world.entity.vehicle.VehicleEntity(net.minecraft.world.entity.EntityType<?>, net.minecraft.world.level.Level);
+  public boolean hurtClient(net.minecraft.world.damagesource.DamageSource);
+  public boolean hurtServer(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource, float);
+  protected boolean shouldSourceDestroy(net.minecraft.world.damagesource.DamageSource);
+  public boolean ignoreExplosion(net.minecraft.world.level.Explosion);
+  public void destroy(net.minecraft.server.level.ServerLevel, net.minecraft.world.item.Item);
+  protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData$Builder);
+  public void setHurtTime(int);
+  public void setHurtDir(int);
+  public void setDamage(float);
+  public float getDamage();
+  public int getHurtTime();
+  public int getHurtDir();
+  protected void destroy(net.minecraft.server.level.ServerLevel, net.minecraft.world.damagesource.DamageSource);
+  public int getDimensionChangingDelay();
+  protected abstract net.minecraft.world.item.Item getDropItem();
+  static {};
+}

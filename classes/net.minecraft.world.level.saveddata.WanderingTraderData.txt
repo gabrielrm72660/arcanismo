@@ -1,0 +1,17 @@
+Compiled from "WanderingTraderData.java"
+public class net.minecraft.world.level.saveddata.WanderingTraderData extends net.minecraft.world.level.saveddata.SavedData {
+  public static final com.mojang.serialization.Codec<net.minecraft.world.level.saveddata.WanderingTraderData> CODEC;
+  public static final net.minecraft.world.level.saveddata.SavedDataType<net.minecraft.world.level.saveddata.WanderingTraderData> TYPE;
+  private int spawnDelay;
+  private int spawnChance;
+  public net.minecraft.world.level.saveddata.WanderingTraderData();
+  public net.minecraft.world.level.saveddata.WanderingTraderData(int, int);
+  public int spawnDelay();
+  public void setSpawnDelay(int);
+  public int spawnChance();
+  public void setSpawnChance(int);
+  private static com.mojang.datafixers.kinds.App lambda$static$0(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+  private static java.lang.Integer lambda$static$2(net.minecraft.world.level.saveddata.WanderingTraderData);
+  private static java.lang.Integer lambda$static$1(net.minecraft.world.level.saveddata.WanderingTraderData);
+  static {};
+}

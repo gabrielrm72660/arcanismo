@@ -1,0 +1,15 @@
+Compiled from "EmptyBlockGetter.java"
+public final class net.minecraft.world.level.EmptyBlockGetter extends java.lang.Enum<net.minecraft.world.level.EmptyBlockGetter> implements net.minecraft.world.level.BlockGetter {
+  public static final net.minecraft.world.level.EmptyBlockGetter INSTANCE;
+  private static final net.minecraft.world.level.EmptyBlockGetter[] $VALUES;
+  public static net.minecraft.world.level.EmptyBlockGetter[] values();
+  public static net.minecraft.world.level.EmptyBlockGetter valueOf(java.lang.String);
+  private net.minecraft.world.level.EmptyBlockGetter();
+  public net.minecraft.world.level.block.entity.BlockEntity getBlockEntity(net.minecraft.core.BlockPos);
+  public net.minecraft.world.level.block.state.BlockState getBlockState(net.minecraft.core.BlockPos);
+  public net.minecraft.world.level.material.FluidState getFluidState(net.minecraft.core.BlockPos);
+  public int getMinY();
+  public int getHeight();
+  private static net.minecraft.world.level.EmptyBlockGetter[] $values();
+  static {};
+}

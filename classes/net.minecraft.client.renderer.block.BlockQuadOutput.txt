@@ -1,0 +1,4 @@
+Compiled from "BlockQuadOutput.java"
+public interface net.minecraft.client.renderer.block.BlockQuadOutput {
+  public abstract void put(float, float, float, net.minecraft.client.resources.model.geometry.BakedQuad, com.mojang.blaze3d.vertex.QuadInstance);
+}

@@ -1,0 +1,13 @@
+Compiled from "AbstractBoatRenderer.java"
+public abstract class net.minecraft.client.renderer.entity.AbstractBoatRenderer extends net.minecraft.client.renderer.entity.EntityRenderer<net.minecraft.world.entity.vehicle.boat.AbstractBoat, net.minecraft.client.renderer.entity.state.BoatRenderState> {
+  protected final net.minecraft.resources.Identifier texture;
+  public net.minecraft.client.renderer.entity.AbstractBoatRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context, net.minecraft.resources.Identifier);
+  public void submit(net.minecraft.client.renderer.entity.state.BoatRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+  protected void submitTypeAdditions(net.minecraft.client.renderer.entity.state.BoatRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int);
+  protected abstract net.minecraft.client.model.EntityModel<net.minecraft.client.renderer.entity.state.BoatRenderState> model();
+  public net.minecraft.client.renderer.entity.state.BoatRenderState createRenderState();
+  public void extractRenderState(net.minecraft.world.entity.vehicle.boat.AbstractBoat, net.minecraft.client.renderer.entity.state.BoatRenderState, float);
+  public void extractRenderState(net.minecraft.world.entity.Entity, net.minecraft.client.renderer.entity.state.EntityRenderState, float);
+  public net.minecraft.client.renderer.entity.state.EntityRenderState createRenderState();
+  public void submit(net.minecraft.client.renderer.entity.state.EntityRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+}

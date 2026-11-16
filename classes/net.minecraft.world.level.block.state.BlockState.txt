@@ -1,0 +1,7 @@
+Compiled from "BlockState.java"
+public class net.minecraft.world.level.block.state.BlockState extends net.minecraft.world.level.block.state.BlockBehaviour$BlockStateBase implements net.minecraftforge.common.extensions.IForgeBlockState {
+  public static final com.mojang.serialization.Codec<net.minecraft.world.level.block.state.BlockState> CODEC;
+  public net.minecraft.world.level.block.state.BlockState(net.minecraft.world.level.block.Block, net.minecraft.world.level.block.state.properties.Property<?>[], java.lang.Comparable<?>[]);
+  protected net.minecraft.world.level.block.state.BlockState asState();
+  static {};
+}

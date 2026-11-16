@@ -1,0 +1,19 @@
+Compiled from "EntityMountEvent.java"
+public final class net.minecraftforge.event.entity.EntityMountEvent extends java.lang.Record implements net.minecraftforge.eventbus.api.event.characteristic.Cancellable,net.minecraftforge.event.entity.EntityEvent,net.minecraftforge.eventbus.api.event.RecordEvent {
+  private final net.minecraft.world.entity.Entity getEntityMounting;
+  private final net.minecraft.world.entity.Entity getEntityBeingMounted;
+  private final net.minecraft.world.level.Level getLevel;
+  private final boolean isMounting;
+  public static final net.minecraftforge.eventbus.api.bus.CancellableEventBus<net.minecraftforge.event.entity.EntityMountEvent> BUS;
+  public net.minecraftforge.event.entity.EntityMountEvent(net.minecraft.world.entity.Entity, net.minecraft.world.entity.Entity, net.minecraft.world.level.Level, boolean);
+  public net.minecraft.world.entity.Entity getEntity();
+  public boolean isDismounting();
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraft.world.entity.Entity getEntityMounting();
+  public net.minecraft.world.entity.Entity getEntityBeingMounted();
+  public net.minecraft.world.level.Level getLevel();
+  public boolean isMounting();
+  static {};
+}

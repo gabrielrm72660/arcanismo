@@ -1,0 +1,22 @@
+Compiled from "InterpolationHandler.java"
+public class net.minecraft.world.entity.InterpolationHandler {
+  public static final int DEFAULT_INTERPOLATION_STEPS;
+  private final net.minecraft.world.entity.Entity entity;
+  private int interpolationSteps;
+  private final net.minecraft.world.entity.InterpolationHandler$InterpolationData interpolationData;
+  private net.minecraft.world.phys.Vec3 previousTickPosition;
+  private net.minecraft.world.phys.Vec2 previousTickRot;
+  private final java.util.function.Consumer<net.minecraft.world.entity.InterpolationHandler> onInterpolationStart;
+  public net.minecraft.world.entity.InterpolationHandler(net.minecraft.world.entity.Entity);
+  public net.minecraft.world.entity.InterpolationHandler(net.minecraft.world.entity.Entity, int);
+  public net.minecraft.world.entity.InterpolationHandler(net.minecraft.world.entity.Entity, java.util.function.Consumer<net.minecraft.world.entity.InterpolationHandler>);
+  public net.minecraft.world.entity.InterpolationHandler(net.minecraft.world.entity.Entity, int, java.util.function.Consumer<net.minecraft.world.entity.InterpolationHandler>);
+  public net.minecraft.world.phys.Vec3 position();
+  public float yRot();
+  public float xRot();
+  public void interpolateTo(net.minecraft.world.phys.Vec3, float, float);
+  public boolean hasActiveInterpolation();
+  public void setInterpolationLength(int);
+  public void interpolate();
+  public void cancel();
+}

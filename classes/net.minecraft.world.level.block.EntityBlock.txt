@@ -1,0 +1,6 @@
+Compiled from "EntityBlock.java"
+public interface net.minecraft.world.level.block.EntityBlock {
+  public abstract net.minecraft.world.level.block.entity.BlockEntity newBlockEntity(net.minecraft.core.BlockPos, net.minecraft.world.level.block.state.BlockState);
+  public default <T extends net.minecraft.world.level.block.entity.BlockEntity> net.minecraft.world.level.block.entity.BlockEntityTicker<T> getTicker(net.minecraft.world.level.Level, net.minecraft.world.level.block.state.BlockState, net.minecraft.world.level.block.entity.BlockEntityType<T>);
+  public default <T extends net.minecraft.world.level.block.entity.BlockEntity> net.minecraft.world.level.gameevent.GameEventListener getListener(net.minecraft.server.level.ServerLevel, T);
+}

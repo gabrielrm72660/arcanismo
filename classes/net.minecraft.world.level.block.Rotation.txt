@@ -1,0 +1,28 @@
+Compiled from "Rotation.java"
+public final class net.minecraft.world.level.block.Rotation extends java.lang.Enum<net.minecraft.world.level.block.Rotation> implements net.minecraft.util.StringRepresentable {
+  public static final net.minecraft.world.level.block.Rotation NONE;
+  public static final net.minecraft.world.level.block.Rotation CLOCKWISE_90;
+  public static final net.minecraft.world.level.block.Rotation CLOCKWISE_180;
+  public static final net.minecraft.world.level.block.Rotation COUNTERCLOCKWISE_90;
+  public static final java.util.function.IntFunction<net.minecraft.world.level.block.Rotation> BY_ID;
+  public static final com.mojang.serialization.Codec<net.minecraft.world.level.block.Rotation> CODEC;
+  public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, net.minecraft.world.level.block.Rotation> STREAM_CODEC;
+  public static final com.mojang.serialization.Codec<net.minecraft.world.level.block.Rotation> LEGACY_CODEC;
+  private final int index;
+  private final java.lang.String id;
+  private final com.mojang.math.OctahedralGroup rotation;
+  private static final net.minecraft.world.level.block.Rotation[] $VALUES;
+  public static net.minecraft.world.level.block.Rotation[] values();
+  public static net.minecraft.world.level.block.Rotation valueOf(java.lang.String);
+  private net.minecraft.world.level.block.Rotation(int, java.lang.String, com.mojang.math.OctahedralGroup);
+  public net.minecraft.world.level.block.Rotation getRotated(net.minecraft.world.level.block.Rotation);
+  public com.mojang.math.OctahedralGroup rotation();
+  public net.minecraft.core.Direction rotate(net.minecraft.core.Direction);
+  public int rotate(int, int);
+  public static net.minecraft.world.level.block.Rotation getRandom(net.minecraft.util.RandomSource);
+  public static java.util.List<net.minecraft.world.level.block.Rotation> getShuffled(net.minecraft.util.RandomSource);
+  public java.lang.String getSerializedName();
+  private int getIndex();
+  private static net.minecraft.world.level.block.Rotation[] $values();
+  static {};
+}

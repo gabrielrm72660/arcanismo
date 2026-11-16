@@ -1,0 +1,13 @@
+Compiled from "TickEvent.java"
+public final class net.minecraftforge.event.TickEvent$ServerTickEvent$Post extends java.lang.Record implements net.minecraftforge.eventbus.api.event.RecordEvent,net.minecraftforge.event.TickEvent$ServerTickEvent {
+  private final java.util.function.BooleanSupplier haveTimeSupplier;
+  private final net.minecraft.server.MinecraftServer server;
+  public static final net.minecraftforge.eventbus.api.bus.EventBus<net.minecraftforge.event.TickEvent$ServerTickEvent$Post> BUS;
+  public net.minecraftforge.event.TickEvent$ServerTickEvent$Post(java.util.function.BooleanSupplier, net.minecraft.server.MinecraftServer);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public java.util.function.BooleanSupplier haveTimeSupplier();
+  public net.minecraft.server.MinecraftServer server();
+  static {};
+}

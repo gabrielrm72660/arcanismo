@@ -1,0 +1,25 @@
+Compiled from "BlockModelRenderState.java"
+public class net.minecraft.client.renderer.block.BlockModelRenderState {
+  public static final int[] EMPTY_TINTS;
+  private java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart> modelParts;
+  private org.joml.Matrix4fc transformation;
+  private net.minecraft.client.renderer.rendertype.RenderType renderType;
+  private net.minecraft.client.renderer.special.SpecialModelRenderer<?> specialRenderer;
+  private org.joml.Matrix4fc specialRendererTransformation;
+  private it.unimi.dsi.fastutil.ints.IntList tintLayers;
+  private net.minecraft.util.RandomSource randomSource;
+  public net.minecraft.client.renderer.block.BlockModelRenderState();
+  public void clear();
+  public it.unimi.dsi.fastutil.ints.IntList tintLayers();
+  public <T> void setupSpecialModel(net.minecraft.client.renderer.special.SpecialModelRenderer<T>, org.joml.Matrix4fc);
+  public java.util.List<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart> setupModel(org.joml.Matrix4fc, boolean);
+  public void submit(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, int, int);
+  private static org.joml.Matrix4fc identityToNull(org.joml.Matrix4fc);
+  private void submitModel(net.minecraft.client.renderer.rendertype.RenderType, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, int, int);
+  private static void submitSpecialRenderer(net.minecraft.client.renderer.special.SpecialModelRenderer<?>, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, int, int);
+  public void submitOnlyOutline(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, int, int);
+  public void submitWithZOffset(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, int, int);
+  public boolean isEmpty();
+  public net.minecraft.util.RandomSource scratchRandomSource(long);
+  static {};
+}

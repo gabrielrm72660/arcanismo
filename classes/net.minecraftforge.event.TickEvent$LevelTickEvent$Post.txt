@@ -1,0 +1,15 @@
+Compiled from "TickEvent.java"
+public final class net.minecraftforge.event.TickEvent$LevelTickEvent$Post extends java.lang.Record implements net.minecraftforge.eventbus.api.event.RecordEvent,net.minecraftforge.event.TickEvent$LevelTickEvent {
+  private final net.minecraftforge.fml.LogicalSide side;
+  private final net.minecraft.world.level.Level level;
+  private final java.util.function.BooleanSupplier haveTimeSupplier;
+  public static final net.minecraftforge.eventbus.api.bus.EventBus<net.minecraftforge.event.TickEvent$LevelTickEvent$Post> BUS;
+  public net.minecraftforge.event.TickEvent$LevelTickEvent$Post(net.minecraftforge.fml.LogicalSide, net.minecraft.world.level.Level, java.util.function.BooleanSupplier);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public net.minecraftforge.fml.LogicalSide side();
+  public net.minecraft.world.level.Level level();
+  public java.util.function.BooleanSupplier haveTimeSupplier();
+  static {};
+}

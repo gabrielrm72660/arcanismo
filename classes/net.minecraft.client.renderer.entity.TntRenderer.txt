@@ -1,0 +1,13 @@
+Compiled from "TntRenderer.java"
+public class net.minecraft.client.renderer.entity.TntRenderer extends net.minecraft.client.renderer.entity.EntityRenderer<net.minecraft.world.entity.item.PrimedTnt, net.minecraft.client.renderer.entity.state.TntRenderState> {
+  public static final net.minecraft.client.renderer.block.model.BlockDisplayContext BLOCK_DISPLAY_CONTEXT;
+  private final net.minecraft.client.renderer.block.BlockModelResolver blockModelResolver;
+  public net.minecraft.client.renderer.entity.TntRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context);
+  public void submit(net.minecraft.client.renderer.entity.state.TntRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+  public net.minecraft.client.renderer.entity.state.TntRenderState createRenderState();
+  public void extractRenderState(net.minecraft.world.entity.item.PrimedTnt, net.minecraft.client.renderer.entity.state.TntRenderState, float);
+  public void extractRenderState(net.minecraft.world.entity.Entity, net.minecraft.client.renderer.entity.state.EntityRenderState, float);
+  public net.minecraft.client.renderer.entity.state.EntityRenderState createRenderState();
+  public void submit(net.minecraft.client.renderer.entity.state.EntityRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+  static {};
+}

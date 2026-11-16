@@ -1,0 +1,23 @@
+Compiled from "CardinalLighting.java"
+public final class net.minecraft.world.level.CardinalLighting extends java.lang.Record {
+  private final float down;
+  private final float up;
+  private final float north;
+  private final float south;
+  private final float west;
+  private final float east;
+  public static final net.minecraft.world.level.CardinalLighting DEFAULT;
+  public static final net.minecraft.world.level.CardinalLighting NETHER;
+  public net.minecraft.world.level.CardinalLighting(float, float, float, float, float, float);
+  public float byFace(net.minecraft.core.Direction);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public float down();
+  public float up();
+  public float north();
+  public float south();
+  public float west();
+  public float east();
+  static {};
+}

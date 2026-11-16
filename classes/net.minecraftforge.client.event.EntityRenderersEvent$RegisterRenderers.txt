@@ -1,0 +1,11 @@
+Compiled from "EntityRenderersEvent.java"
+public final class net.minecraftforge.client.event.EntityRenderersEvent$RegisterRenderers extends java.lang.Record implements net.minecraftforge.eventbus.api.event.characteristic.SelfDestructing,net.minecraftforge.eventbus.api.event.RecordEvent,net.minecraftforge.client.event.EntityRenderersEvent {
+  public static final net.minecraftforge.eventbus.api.bus.EventBus<net.minecraftforge.client.event.EntityRenderersEvent$RegisterRenderers> BUS;
+  public net.minecraftforge.client.event.EntityRenderersEvent$RegisterRenderers();
+  public <T extends net.minecraft.world.entity.Entity> void registerEntityRenderer(net.minecraft.world.entity.EntityType<? extends T>, net.minecraft.client.renderer.entity.EntityRendererProvider<T>);
+  public <T extends net.minecraft.world.level.block.entity.BlockEntity, S extends net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState> void registerBlockEntityRenderer(net.minecraft.world.level.block.entity.BlockEntityType<? extends T>, net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider<T, S>);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  static {};
+}

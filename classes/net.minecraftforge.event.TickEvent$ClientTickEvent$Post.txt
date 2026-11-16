@@ -1,0 +1,10 @@
+Compiled from "TickEvent.java"
+public final class net.minecraftforge.event.TickEvent$ClientTickEvent$Post extends java.lang.Record implements net.minecraftforge.eventbus.api.event.RecordEvent,net.minecraftforge.event.TickEvent$ClientTickEvent {
+  public static final net.minecraftforge.eventbus.api.bus.EventBus<net.minecraftforge.event.TickEvent$ClientTickEvent$Post> BUS;
+  public static final net.minecraftforge.event.TickEvent$ClientTickEvent$Post INSTANCE;
+  public net.minecraftforge.event.TickEvent$ClientTickEvent$Post();
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  static {};
+}

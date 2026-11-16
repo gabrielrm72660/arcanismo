@@ -1,0 +1,5 @@
+Compiled from "NoopRenderer.java"
+public class net.minecraft.client.renderer.entity.NoopRenderer<T extends net.minecraft.world.entity.Entity> extends net.minecraft.client.renderer.entity.EntityRenderer<T, net.minecraft.client.renderer.entity.state.EntityRenderState> {
+  public net.minecraft.client.renderer.entity.NoopRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context);
+  public net.minecraft.client.renderer.entity.state.EntityRenderState createRenderState();
+}

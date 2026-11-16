@@ -1,0 +1,18 @@
+Compiled from "DisplayRenderer.java"
+public class net.minecraft.client.renderer.entity.DisplayRenderer$BlockDisplayRenderer extends net.minecraft.client.renderer.entity.DisplayRenderer<net.minecraft.world.entity.Display$BlockDisplay, net.minecraft.world.entity.Display$BlockDisplay$BlockRenderState, net.minecraft.client.renderer.entity.state.BlockDisplayEntityRenderState> {
+  protected net.minecraft.client.renderer.entity.DisplayRenderer$BlockDisplayRenderer(net.minecraft.client.renderer.entity.EntityRendererProvider$Context);
+  public net.minecraft.client.renderer.entity.state.BlockDisplayEntityRenderState createRenderState();
+  public void extractRenderState(net.minecraft.world.entity.Display$BlockDisplay, net.minecraft.client.renderer.entity.state.BlockDisplayEntityRenderState, float);
+  public void submitInner(net.minecraft.client.renderer.entity.state.BlockDisplayEntityRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, float);
+  public void extractRenderState(net.minecraft.world.entity.Display, net.minecraft.client.renderer.entity.state.DisplayEntityRenderState, float);
+  public void submitInner(net.minecraft.client.renderer.entity.state.DisplayEntityRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, int, float);
+  public void extractRenderState(net.minecraft.world.entity.Entity, net.minecraft.client.renderer.entity.state.EntityRenderState, float);
+  public net.minecraft.client.renderer.entity.state.EntityRenderState createRenderState();
+  protected float getShadowStrength(net.minecraft.client.renderer.entity.state.EntityRenderState);
+  protected float getShadowRadius(net.minecraft.client.renderer.entity.state.EntityRenderState);
+  public void submit(net.minecraft.client.renderer.entity.state.EntityRenderState, com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.SubmitNodeCollector, net.minecraft.client.renderer.state.level.CameraRenderState);
+  protected boolean affectedByCulling(net.minecraft.world.entity.Entity);
+  protected net.minecraft.world.phys.AABB getBoundingBoxForCulling(net.minecraft.world.entity.Entity);
+  protected int getBlockLightLevel(net.minecraft.world.entity.Entity, net.minecraft.core.BlockPos);
+  protected int getSkyLightLevel(net.minecraft.world.entity.Entity, net.minecraft.core.BlockPos);
+}

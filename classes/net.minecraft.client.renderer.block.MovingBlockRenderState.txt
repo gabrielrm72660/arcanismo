@@ -1,0 +1,18 @@
+Compiled from "MovingBlockRenderState.java"
+public class net.minecraft.client.renderer.block.MovingBlockRenderState implements net.minecraft.client.renderer.block.BlockAndTintGetter {
+  public net.minecraft.core.BlockPos randomSeedPos;
+  public net.minecraft.core.BlockPos blockPos;
+  public net.minecraft.world.level.block.state.BlockState blockState;
+  public net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> biome;
+  public net.minecraft.world.level.CardinalLighting cardinalLighting;
+  public net.minecraft.world.level.lighting.LevelLightEngine lightEngine;
+  public net.minecraft.client.renderer.block.MovingBlockRenderState();
+  public net.minecraft.world.level.CardinalLighting cardinalLighting();
+  public net.minecraft.world.level.lighting.LevelLightEngine getLightEngine();
+  public int getBlockTint(net.minecraft.core.BlockPos, net.minecraft.world.level.ColorResolver);
+  public net.minecraft.world.level.block.entity.BlockEntity getBlockEntity(net.minecraft.core.BlockPos);
+  public net.minecraft.world.level.block.state.BlockState getBlockState(net.minecraft.core.BlockPos);
+  public net.minecraft.world.level.material.FluidState getFluidState(net.minecraft.core.BlockPos);
+  public int getHeight();
+  public int getMinY();
+}
