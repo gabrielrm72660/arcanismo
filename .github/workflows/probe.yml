@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - probe-classes.txt
+      - probe-bytecode.txt
       - .github/workflows/probe.yml
 
 permissions:
@@ -55,6 +56,16 @@ jobs:
             if [ -z "$jar" ]; then echo "NAO ENCONTRADA: $cls" > "out/classes/$cls.txt"; continue; fi
             javap -p -cp "$jar" "$cls" > "out/classes/$cls.txt" 2>&1 || true
           done < probe-classes.txt
+          # bytecode (para ver como o próprio Minecraft usa certas APIs)
+          if [ -f probe-bytecode.txt ]; then
+            while read -r cls; do
+              [ -z "$cls" ] && continue
+              case "$cls" in \#*) continue;; esac
+              jar=$(awk -F'\t' -v c="$cls" '$1==c {print $2; exit}' out/index.tsv)
+              [ -z "$jar" ] && continue
+              javap -p -c -cp "$jar" "$cls" 2>&1 | grep -E "^  [a-z]|invoke|getfield|putfield|getstatic|new |ldc" > "out/classes/$cls.code.txt" || true
+            done < probe-bytecode.txt
+          fi
           # o índice só com nomes (sem o caminho do jar) para facilitar a busca
           cut -f1 out/index.tsv | sort -u > out/nomes.txt
           rm out/index.tsv

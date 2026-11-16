@@ -64,3 +64,9 @@ net.minecraft.client.renderer.block.BlockQuadOutput
 net.minecraft.client.renderer.block.BlockAndTintGetter
 net.minecraft.world.phys.shapes.VoxelShape
 net.minecraft.world.level.block.entity.FuelValues
+net.minecraft.world.level.storage.SavedDataStorage
+net.minecraft.world.level.CardinalLighting
+net.minecraft.core.IdMapper
+net.minecraft.client.renderer.entity.EntityRenderDispatcher
+net.minecraft.world.entity.player.Player
+net.minecraft.world.level.block.EntityBlock
