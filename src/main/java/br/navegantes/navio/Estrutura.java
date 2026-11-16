@@ -30,6 +30,7 @@ public final class Estrutura {
         public final int dx, dy, dz;
         public final BlockState estado;
         public boolean visivel = true;
+        public int indiceFornalha = -1;
         private List<AABB> caixas;
 
         public Bloco(int dx, int dy, int dz, BlockState estado) {
@@ -117,6 +118,7 @@ public final class Estrutura {
             r2 = Math.max(r2, (Math.abs(b.dx) + 0.5) * (Math.abs(b.dx) + 0.5) + (Math.abs(b.dz) + 0.5) * (Math.abs(b.dz) + 0.5));
             Block bloco = b.estado.getBlock();
             if (bloco instanceof FornalhaBlock) {
+                b.indiceFornalha = fornalhasLista.size();
                 fornalhas++;
                 fornalhasLista.add(b);
             } else if (bloco instanceof VelaBlock) {
