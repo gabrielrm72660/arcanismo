@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import br.navegantes.bloco.AssentoBlock;
 import br.navegantes.bloco.FornalhaBlock;
 import br.navegantes.bloco.TimaoBlock;
 import br.navegantes.bloco.VelaBlock;
@@ -50,7 +51,7 @@ public final class Montador {
                 BlockState e = nivel.getBlockState(v);
                 if (e.isAir() || e.getBlock() instanceof LiquidBlock) continue;
                 boolean doMod = e.getBlock() instanceof TimaoBlock || e.getBlock() instanceof FornalhaBlock
-                        || e.getBlock() instanceof VelaBlock;
+                        || e.getBlock() instanceof VelaBlock || e.getBlock() instanceof AssentoBlock;
                 if (!doMod && !cola.contem(v)) continue;
                 vistos.add(v.asLong());
                 if (e.hasBlockEntity()) {
@@ -138,9 +139,10 @@ public final class Montador {
 
         String extra = ignorados > 0 ? " (" + ignorados + " blocos com inventário ficaram de fora)" : "";
         Mensagens.chat(jogador, "Navio montado com " + blocos.size() + " blocos!" + extra
-                + " Clique no Timão para guiar. Fornalhas: " + estrutura.fornalhas + ", velas: " + estrutura.velas + ".");
+                + " Ele começa com a âncora lançada. Sente no assento (ou clique no Timão) e aperte Ctrl para soltá-la. "
+                + "Motores/fornalhas: " + estrutura.fornalhas + ", velas: " + estrutura.velas + ".");
         if (estrutura.timao() != null && estrutura.fornalhas == 0 && estrutura.velas == 0) {
-            Mensagens.chat(jogador, "Dica: sem Fornalha a Vapor nem Vela o navio não anda.");
+            Mensagens.chat(jogador, "Dica: sem Motor, Fornalha a Vapor nem Vela o navio não anda.");
         }
         return true;
     }

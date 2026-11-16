@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "navegantes:block/assento"
+    },
+    "facing=east": {
+      "model": "navegantes:block/assento",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "navegantes:block/assento",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "navegantes:block/assento",
+      "y": 270
+    }
+  }
+}

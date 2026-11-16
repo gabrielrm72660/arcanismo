@@ -6,7 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import br.navegantes.bloco.AssentoBlock;
 import br.navegantes.bloco.FornalhaBlock;
+import br.navegantes.bloco.MotorBlock;
+import br.navegantes.bloco.TimaoBlock;
 import br.navegantes.registro.ModEntidades;
 import br.navegantes.registro.ModItens;
 import net.minecraft.core.BlockPos;
@@ -60,6 +63,8 @@ public class NavioEntidade extends Entity {
             SynchedEntityData.defineId(NavioEntidade.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DADOS_RUMO =
             SynchedEntityData.defineId(NavioEntidade.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<String> DADOS_LUGARES =
+            SynchedEntityData.defineId(NavioEntidade.class, EntityDataSerializers.STRING);
 
     private static final double DEGRAU = 0.6;
     private static final int COMBUSTIVEL_MAXIMO = 72000;
@@ -81,13 +86,23 @@ public class NavioEntidade extends Entity {
     private float giro;
     private double velVertical;
     private int[] combustivel = new int[0];
+    private double[] potencias = new double[0];
+    private int[] consumos = new int[0];
     private boolean ctrlAnterior;
+    private boolean bloqueado;
     private int semAgua;
-    private int avisoSemMotor;
     private double[][] amostras = new double[0][];
+
+    /** Quem está em qual assento: id da entidade -> índice do assento (-1 = em pé, atrás do timão). */
+    private final Map<Integer, Integer> lugares = new HashMap<>();
+
+    /** Pose de cada tick no cliente, só para desenhar: o desenho interpola entre o tick anterior e o atual. */
+    private boolean iniciado;
+    private double sx, sy, sz, sxAnt, syAnt, szAnt;
 
     private final List<PecaInterativa> pecas = new ArrayList<>();
     private final List<Estrutura.Bloco> blocosDasPecas = new ArrayList<>();
+    private List<Estrutura.Bloco> alvosPecas;
     private final Map<Integer, Carga> cargas = new HashMap<>();
 
     public NavioEntidade(EntityType<?> tipo, Level nivel) {
@@ -102,6 +117,7 @@ public class NavioEntidade extends Entity {
         construtor.define(DADOS_ANCORA, false);
         construtor.define(DADOS_ACESAS, 0);
         construtor.define(DADOS_RUMO, 0.0f);
+        construtor.define(DADOS_LUGARES, "");
     }
 
     /** Chamado pelo Montador, no servidor, logo depois de criar a entidade. */
@@ -109,12 +125,33 @@ public class NavioEntidade extends Entity {
         this.estrutura = nova;
         this.calado = caladoInicial;
         this.combustivel = new int[nova.fornalhas];
+        this.alvosPecas = null;
+        prepararMotores();
         this.rumo = 0.0f;
         this.rumoAnterior = 0.0f;
         calcularAmostras();
         getEntityData().set(DADOS_ESTRUTURA, nova.codificar());
         getEntityData().set(DADOS_RUMO, 0.0f);
+        getEntityData().set(DADOS_ANCORA, true); // o navio nasce com a âncora lançada
         atualizarCaixa();
+    }
+
+    /** Guarda a força e o consumo de cada motor/fornalha (cada tipo de bloco tem os seus). */
+    private void prepararMotores() {
+        int n = estrutura.fornalhasLista().size();
+        potencias = new double[n];
+        consumos = new int[n];
+        for (Estrutura.Bloco b : estrutura.fornalhasLista()) {
+            int i = b.indiceFornalha;
+            if (i < 0 || i >= n) continue;
+            if (b.estado.getBlock() instanceof FornalhaBlock f) {
+                potencias[i] = f.potencia();
+                consumos[i] = f.consumo();
+            } else {
+                potencias[i] = 0.10;
+                consumos[i] = 1;
+            }
+        }
     }
 
     public Estrutura estrutura() {
@@ -145,10 +182,64 @@ public class NavioEntidade extends Entity {
             estrutura = Estrutura.decodificar(getEntityData().get(DADOS_ESTRUTURA));
             calcularAmostras();
             atualizarCaixa();
+        } else if (DADOS_LUGARES.equals(acessor)) {
+            decodificarLugares(getEntityData().get(DADOS_LUGARES));
         } else if (DADOS_RUMO.equals(acessor) && tickCount <= 1) {
             rumo = getEntityData().get(DADOS_RUMO);
             rumoAnterior = rumo;
         }
+    }
+
+    // ------------------------------------------------------------------ lugares (quem senta onde)
+
+    private void publicarLugares() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Integer, Integer> e : lugares.entrySet()) {
+            if (sb.length() > 0) sb.append(',');
+            sb.append(e.getKey()).append(':').append(e.getValue());
+        }
+        getEntityData().set(DADOS_LUGARES, sb.toString());
+    }
+
+    private void decodificarLugares(String texto) {
+        lugares.clear();
+        if (texto.isEmpty()) return;
+        for (String par : texto.split(",")) {
+            int i = par.indexOf(':');
+            if (i < 0) continue;
+            try {
+                lugares.put(Integer.parseInt(par.substring(0, i)), Integer.parseInt(par.substring(i + 1)));
+            } catch (NumberFormatException ignorado) {
+                // ignora um par malformado
+            }
+        }
+    }
+
+    /** Índice do assento de um passageiro (-1 = em pé). Sem registro, vale a ordem de embarque. */
+    private int lugarDe(Entity passageiro) {
+        Integer l = lugares.get(passageiro.getId());
+        if (l != null) return l;
+        int ordem = getPassengers().indexOf(passageiro);
+        return ordem >= 0 && ordem < estrutura.assentos().size() ? ordem : -1;
+    }
+
+    /** O assento do piloto é o mais perto do timão; sem assentos, o piloto fica em pé atrás do timão. */
+    private int lugarDoPiloto() {
+        return estrutura.assentos().isEmpty() ? -1 : 0;
+    }
+
+    private int capacidade() {
+        return Math.max(1, estrutura.assentos().size());
+    }
+
+    private void limparLugares() {
+        boolean mudou = lugares.keySet().removeIf(id -> {
+            for (Entity p : getPassengers()) {
+                if (p.getId() == id) return false;
+            }
+            return true;
+        });
+        if (mudou) publicarLugares();
     }
 
     private void atualizarCaixa() {
@@ -220,9 +311,20 @@ public class NavioEntidade extends Entity {
         return new Vec3(t.dx, t.dy, t.dz);
     }
 
+    /** Onde (no referencial do navio) os pés de um passageiro ficam: no assento ou atrás do timão. */
+    private Vec3 localDe(Entity passageiro) {
+        int lugar = lugarDe(passageiro);
+        List<Estrutura.Bloco> assentos = estrutura.assentos();
+        if (lugar >= 0 && lugar < assentos.size()) {
+            Estrutura.Bloco b = assentos.get(lugar);
+            return new Vec3(b.dx, b.dy + 0.05, b.dz);
+        }
+        return localPiloto();
+    }
+
     @Override
     protected Vec3 getPassengerAttachmentPoint(Entity passageiro, EntityDimensions dimensoes, float escala) {
-        Vec3 l = localPiloto();
+        Vec3 l = localDe(passageiro);
         double[] w = vetorParaMundo(l.x, l.z);
         Vec3 ponto = passageiro.getVehicleAttachmentPoint(this);
         return new Vec3(w[0] + ponto.x, l.y + ponto.y, w[1] + ponto.z);
@@ -230,13 +332,15 @@ public class NavioEntidade extends Entity {
 
     @Override
     public Vec3 getDismountLocationForPassenger(LivingEntity quem) {
-        Vec3 l = localPiloto();
-        return paraMundo(l.x, l.y, l.z).add(0.0, 0.1, 0.0);
+        Vec3 l = localDe(quem);
+        int lugar = lugarDe(quem);
+        double sobe = lugar >= 0 && lugar < estrutura.assentos().size() ? 0.6 : 0.0;
+        return paraMundo(l.x, l.y + sobe, l.z).add(0.0, 0.1, 0.0);
     }
 
     @Override
     protected boolean canAddPassenger(Entity passageiro) {
-        return getPassengers().isEmpty();
+        return getPassengers().size() < capacidade();
     }
 
     // ------------------------------------------------------------------ tick
@@ -260,57 +364,72 @@ public class NavioEntidade extends Entity {
     }
 
     private ServerPlayer pilotoAtual() {
+        int lugarPiloto = lugarDoPiloto();
         for (Entity p : getPassengers()) {
-            if (p instanceof ServerPlayer jogador) return jogador;
+            if (p instanceof ServerPlayer jogador && lugarDe(p) == lugarPiloto) return jogador;
         }
         return null;
     }
 
+    /** Força total agora: velas + motores/fornalhas que ainda têm combustível. */
+    private double potencia() {
+        double total = Math.min(estrutura.velas, 6) * 0.02;
+        for (int i = 0; i < combustivel.length && i < potencias.length; i++) {
+            if (combustivel[i] > 0) total += potencias[i];
+        }
+        return total;
+    }
+
+    /** Quanto tempo (em ticks) o combustível mais cheio ainda dura, já descontado o consumo. */
+    private int autonomia() {
+        int melhor = 0;
+        for (int i = 0; i < combustivel.length; i++) {
+            int consumo = i < consumos.length && consumos[i] > 0 ? consumos[i] : 1;
+            melhor = Math.max(melhor, combustivel[i] / consumo);
+        }
+        return melhor;
+    }
+
     private void tickServidor(ServerLevel nivel) {
         manterPecas();
+        limparLugares();
 
         ServerPlayer piloto = pilotoAtual();
         Input entrada = piloto != null ? piloto.getLastClientInput() : Input.EMPTY;
-        // Ctrl lança/recolhe a âncora; Shift sai do timão (o próprio jogo cuida disso).
+        // Ctrl lança/recolhe a âncora; Shift levanta do assento (o próprio jogo cuida disso).
         if (piloto != null && entrada.sprint() && !ctrlAnterior) {
             alternarAncora(piloto);
         }
         ctrlAnterior = entrada.sprint();
 
         boolean ancorado = ancora();
-        boolean frente = entrada.forward() && !entrada.backward();
-        boolean re = entrada.backward() && !entrada.forward();
-        boolean pedeMover = piloto != null && !ancorado && (frente || re);
+        boolean freia = piloto != null && entrada.backward() && !entrada.forward();
 
-        // Motor: cada fornalha com combustível queima enquanto o piloto pede movimento.
+        double potencia = potencia();
+        double massa = 1.0 / (1.0 + Math.max(0, estrutura.blocos().size() - 40) / 240.0);
+        double vmax = Math.min(0.6, potencia) * massa;
+
+        // Com a âncora solta o navio anda sozinho; motores e fornalhas queimam combustível enquanto
+        // empurram (e param de gastar se o navio estiver encalhado).
         int bits = 0;
-        int acesas = 0;
-        for (int i = 0; i < combustivel.length; i++) {
-            if (combustivel[i] > 0 && pedeMover) {
-                acesas++;
-                if (i < 31) bits |= 1 << i;
-                combustivel[i]--;
+        if (!ancorado && !bloqueado) {
+            for (int i = 0; i < combustivel.length; i++) {
+                if (combustivel[i] > 0) {
+                    if (i < 31) bits |= 1 << i;
+                    int consumo = i < consumos.length && consumos[i] > 0 ? consumos[i] : 1;
+                    combustivel[i] = Math.max(0, combustivel[i] - consumo);
+                }
             }
         }
-        double potencia = acesas * 0.10 + (pedeMover ? Math.min(estrutura.velas, 6) * 0.018 : 0.0);
-        double massa = 1.0 / (1.0 + Math.max(0, estrutura.blocos().size() - 40) / 240.0);
-        double vmax = Math.min(0.42, potencia) * massa;
 
-        if (pedeMover && potencia <= 0.0 && --avisoSemMotor <= 0) {
-            Mensagens.barra(piloto, "Sem força! Dê carvão à Fornalha a Vapor (clique nela) ou erga Velas.");
-            avisoSemMotor = 80;
-        }
-
-        double alvo = 0.0;
-        if (!ancorado && piloto != null) alvo = frente ? vmax : (re ? -vmax * 0.4 : 0.0);
+        double alvo = ancorado ? 0.0 : (freia ? -vmax * 0.35 : vmax);
         if (ancorado) {
-            velocidade *= 0.75f;
-        } else if (alvo == 0.0) {
-            velocidade *= 0.97f;
+            velocidade *= 0.85f;
         } else {
-            velocidade += (float) ((alvo - velocidade) * 0.06);
+            double k = (freia && velocidade > 0.0f) ? 0.12 : 0.04;
+            velocidade += (float) ((alvo - velocidade) * k);
         }
-        if (Math.abs(velocidade) < 0.002f) velocidade = 0.0f;
+        if (alvo == 0.0 && Math.abs(velocidade) < 0.002f) velocidade = 0.0f;
 
         float alvoGiro = 0.0f;
         if (piloto != null && !ancorado) alvoGiro = (entrada.left() ? 1 : 0) - (entrada.right() ? 1 : 0);
@@ -331,15 +450,15 @@ public class NavioEntidade extends Entity {
         levarEntidades(nivel);
 
         if (piloto != null && tickCount % 10 == 0) {
+            String aviso = ancorado ? "   [ÂNCORA LANÇADA - Ctrl solta]"
+                    : (potencia <= 0.0 ? "   [SEM FORÇA - abasteça o Motor ou erga Velas]" : "");
             Mensagens.barra(piloto, String.format("Velocidade %.1f b/s   Combustível %s%s",
-                    Math.abs(velocidade) * 20.0f, tempo(combustivelTotal()), ancorado ? "   [ÂNCORA LANÇADA]" : ""));
+                    Math.abs(velocidade) * 20.0f, tempo(autonomia()), aviso));
         }
     }
 
     private void tickCliente() {
-        rumoAnterior = rumo;
-        rumo = getEntityData().get(DADOS_RUMO);
-        if (tickCount <= 1) rumoAnterior = rumo;
+        atualizarCliente();
 
         int bits = acesasBits();
         if (bits != 0 && tickCount % 4 == 0) {
@@ -353,9 +472,39 @@ public class NavioEntidade extends Entity {
         }
     }
 
+    /**
+     * Uma vez por tick no cliente: guarda a pose do tick. O jogo não interpola esta entidade por
+     * conta própria (a posição "salta" a cada pacote), então o desenho interpola entre estas poses.
+     */
+    private void atualizarCliente() {
+        rumoAnterior = rumo;
+        rumo = getEntityData().get(DADOS_RUMO);
+        if (!iniciado) {
+            sx = sxAnt = getX();
+            sy = syAnt = getY();
+            sz = szAnt = getZ();
+            rumoAnterior = rumo;
+            iniciado = true;
+        } else {
+            sxAnt = sx;
+            syAnt = sy;
+            szAnt = sz;
+            sx = getX();
+            sy = getY();
+            sz = getZ();
+        }
+    }
+
+    /** Posição suave para desenhar (cliente). */
+    public Vec3 posRender(float parcial) {
+        if (!iniciado) return new Vec3(getX(), getY(), getZ());
+        return new Vec3(Mth.lerp(parcial, sxAnt, sx), Mth.lerp(parcial, syAnt, sy), Mth.lerp(parcial, szAnt, sz));
+    }
+
     // ------------------------------------------------------------------ movimento no servidor
 
     private void mover() {
+        bloqueado = false;
         float rumoNovo = rumo + giro;
         double[] f = frenteMundo(rumoNovo);
         double nx = getX() + f[0] * velocidade;
@@ -379,6 +528,7 @@ public class NavioEntidade extends Entity {
         } else {
             velocidade = 0.0f;
             giro = 0.0f;
+            bloqueado = true;
         }
     }
 
@@ -453,9 +603,33 @@ public class NavioEntidade extends Entity {
 
     // ------------------------------------------------------------------ peças clicáveis
 
+    private static int tipoPeca(Estrutura.Bloco b) {
+        Block bloco = b.estado.getBlock();
+        if (bloco instanceof TimaoBlock) return PecaInterativa.TIMAO;
+        if (bloco instanceof AssentoBlock) return PecaInterativa.ASSENTO;
+        if (bloco instanceof FornalhaBlock) return PecaInterativa.FORNALHA;
+        return -1;
+    }
+
+    private static int indicePeca(Estrutura.Bloco b, int tipo) {
+        return tipo == PecaInterativa.ASSENTO ? b.indiceAssento : (tipo == PecaInterativa.FORNALHA ? b.indiceFornalha : 0);
+    }
+
+    /** Blocos que ganham uma peça clicável: as duas metades do timão, cada assento, cada motor/fornalha. */
+    private List<Estrutura.Bloco> alvosDasPecas() {
+        if (alvosPecas == null) {
+            List<Estrutura.Bloco> lista = new ArrayList<>();
+            for (Estrutura.Bloco b : estrutura.blocos()) {
+                if (tipoPeca(b) >= 0) lista.add(b);
+            }
+            alvosPecas = lista;
+        }
+        return alvosPecas;
+    }
+
     private void manterPecas() {
-        int esperado = (estrutura.timao() != null ? 1 : 0) + estrutura.fornalhas;
-        boolean ok = pecas.size() == esperado;
+        List<Estrutura.Bloco> alvos = alvosDasPecas();
+        boolean ok = pecas.size() == alvos.size();
         if (ok) {
             for (PecaInterativa p : pecas) {
                 if (p.isRemoved()) {
@@ -468,8 +642,10 @@ public class NavioEntidade extends Entity {
         for (PecaInterativa p : pecas) p.discard();
         pecas.clear();
         blocosDasPecas.clear();
-        if (estrutura.timao() != null) criarPeca(PecaInterativa.TIMAO, 0, estrutura.timao());
-        for (Estrutura.Bloco f : estrutura.fornalhasLista()) criarPeca(PecaInterativa.FORNALHA, f.indiceFornalha, f);
+        for (Estrutura.Bloco b : alvos) {
+            int tipo = tipoPeca(b);
+            criarPeca(tipo, indicePeca(b, tipo), b);
+        }
     }
 
     private void criarPeca(int tipo, int indice, Estrutura.Bloco bloco) {
@@ -494,52 +670,143 @@ public class NavioEntidade extends Entity {
     /** Clique numa peça (só no servidor). */
     public void aoClicarPeca(PecaInterativa peca, Player jogador, InteractionHand mao) {
         ItemStack naMao = jogador.getItemInHand(mao);
+        if (naMao.is(ModItens.CHAVE_INGLESA.get())) {
+            desmontar(jogador);
+            return;
+        }
         if (peca.tipo() == PecaInterativa.TIMAO) {
             if (jogador.isShiftKeyDown() && naMao.is(ModItens.COLA_NAVAL.get())) {
                 desmontar(jogador);
                 return;
             }
-            if (getPassengers().contains(jogador)) return;
-            if (!getPassengers().isEmpty()) {
-                Mensagens.barra(jogador, "Já tem alguém ao timão.");
-                return;
-            }
-            if (jogador.startRiding(this)) {
-                ctrlAnterior = true;
-                Mensagens.chat(jogador, "No timão: W/S acelera, A/D vira, Ctrl lança/recolhe a âncora, Shift sai. "
-                        + "Segure a Cola Naval e agache clicando no timão para desmontar o navio.");
-            }
+            sentar(jogador, lugarDoPiloto());
+            return;
+        }
+        if (peca.tipo() == PecaInterativa.ASSENTO) {
+            sentar(jogador, peca.indice());
             return;
         }
 
         int i = peca.indice();
         if (i < 0 || i >= combustivel.length) return;
+        boolean motor = i < estrutura.fornalhasLista().size()
+                && estrutura.fornalhasLista().get(i).estado.getBlock() instanceof MotorBlock;
+        String nome = motor ? "Motor" : "Fornalha";
+        int consumo = i < consumos.length && consumos[i] > 0 ? consumos[i] : 1;
         if (!naMao.isEmpty() && level().fuelValues().isFuel(naMao) && naMao.getMaxStackSize() > 1) {
             int queima = level().fuelValues().burnDuration(naMao);
             if (queima <= 0 || combustivel[i] + queima > COMBUSTIVEL_MAXIMO) {
-                Mensagens.barra(jogador, "A fornalha está cheia.");
+                Mensagens.barra(jogador, nome + " cheio.");
                 return;
             }
             combustivel[i] += queima;
             if (!jogador.getAbilities().instabuild) naMao.shrink(1);
-            Mensagens.barra(jogador, "Fornalha abastecida: " + tempo(combustivel[i]) + " de combustível.");
+            Mensagens.barra(jogador, nome + " abastecido: " + tempo(combustivel[i] / consumo) + " de combustível.");
             level().playSound(null, blockPosition(), SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 0.8f, 1.0f);
         } else {
-            Mensagens.barra(jogador, "Fornalha: " + tempo(combustivel[i]) + " de combustível. Clique com carvão na mão.");
+            Mensagens.barra(jogador, nome + ": " + tempo(combustivel[i] / consumo) + " de combustível. Clique com carvão na mão.");
+        }
+    }
+
+    /** Senta o jogador (lugar = índice do assento; -1 = em pé atrás do timão, quando não há assentos). */
+    private void sentar(Player jogador, int lugar) {
+        boolean abordo = getPassengers().contains(jogador);
+        for (Entity p : getPassengers()) {
+            if (p != jogador && lugarDe(p) == lugar) {
+                Mensagens.barra(jogador, lugar < 0 ? "Já tem alguém ao timão."
+                        : (lugar == lugarDoPiloto() ? "O assento do piloto está ocupado." : "Assento ocupado."));
+                return;
+            }
+        }
+        if (!abordo && getPassengers().size() >= capacidade()) {
+            Mensagens.barra(jogador, "O navio está lotado.");
+            return;
+        }
+        lugares.put(jogador.getId(), lugar);
+        publicarLugares();
+        if (!abordo && !jogador.startRiding(this)) {
+            lugares.remove(jogador.getId());
+            publicarLugares();
+            return;
+        }
+        ctrlAnterior = true; // se o Ctrl já estava apertado, não conta como "lançar a âncora"
+        if (lugar == lugarDoPiloto()) {
+            Mensagens.chat(jogador, "Ao leme! Ctrl solta/lança a âncora (com ela solta o navio anda sozinho), "
+                    + "A/D vira, S freia e dá ré, Shift levanta.");
+            if (ancora()) Mensagens.barra(jogador, "Âncora lançada. Aperte Ctrl para soltá-la e partir.");
+        } else {
+            Mensagens.barra(jogador, "Você está sentado como passageiro. Shift levanta.");
         }
     }
 
     private void alternarAncora(ServerPlayer jogador) {
         boolean nova = !ancora();
         getEntityData().set(DADOS_ANCORA, nova);
-        Mensagens.barra(jogador, nova ? "Âncora lançada!" : "Âncora recolhida.");
+        if (nova) {
+            Mensagens.barra(jogador, "Âncora lançada! O navio vai parando.");
+        } else if (potencia() > 0.0) {
+            Mensagens.barra(jogador, "Âncora solta! O navio segue sozinho. A/D vira, S freia.");
+        } else {
+            Mensagens.barra(jogador, "Âncora solta, mas sem força: abasteça o Motor ou a Fornalha, ou erga Velas.");
+        }
         level().playSound(null, blockPosition(), SoundEvents.ANVIL_PLACE, SoundSource.NEUTRAL, 0.6f, nova ? 0.8f : 1.4f);
     }
 
-    private int combustivelTotal() {
-        int total = 0;
-        for (int c : combustivel) total += c;
-        return total;
+    // ------------------------------------------------------------------ achar o navio com o olhar
+
+    /** O navio que o jogador está mirando (qualquer bloco dele), a no máximo "alcance" blocos. */
+    public static NavioEntidade acharNoRaio(Level nivel, Player jogador, double alcance) {
+        Vec3 olho = jogador.getEyePosition();
+        Vec3 olhar = jogador.getLookAngle();
+        AABB area = new AABB(olho, olho).inflate(alcance + 1.0);
+        NavioEntidade melhor = null;
+        double menor = alcance;
+        for (NavioEntidade navio : nivel.getEntitiesOfClass(NavioEntidade.class, area)) {
+            double d = navio.distanciaDoRaio(olho, olhar, menor);
+            if (d >= 0.0 && d <= menor) {
+                menor = d;
+                melhor = navio;
+            }
+        }
+        return melhor;
+    }
+
+    private double distanciaDoRaio(Vec3 olho, Vec3 dir, double maximo) {
+        double[] o = vetorParaLocal(olho.x - getX(), olho.z - getZ());
+        double[] d = vetorParaLocal(dir.x, dir.z);
+        double[] origem = {o[0], olho.y - getY(), o[1]};
+        double[] direcao = {d[0], dir.y, d[1]};
+        double melhor = -1.0;
+        for (Estrutura.Bloco b : estrutura.blocos()) {
+            double t = tocaCelula(origem, direcao, b.dx - 0.5, b.dy, b.dz - 0.5, b.dx + 0.5, b.dy + 1.0, b.dz + 0.5, maximo);
+            if (t >= 0.0 && (melhor < 0.0 || t < melhor)) melhor = t;
+        }
+        return melhor;
+    }
+
+    /** Raio contra uma caixa (método das lajes). Devolve a distância de entrada, ou -1 se não bate. */
+    private static double tocaCelula(double[] o, double[] d, double x0, double y0, double z0,
+                                     double x1, double y1, double z1, double maximo) {
+        double[] lo = {x0, y0, z0};
+        double[] hi = {x1, y1, z1};
+        double entra = 0.0, sai = maximo;
+        for (int i = 0; i < 3; i++) {
+            if (Math.abs(d[i]) < 1.0E-9) {
+                if (o[i] < lo[i] || o[i] > hi[i]) return -1.0;
+            } else {
+                double a = (lo[i] - o[i]) / d[i];
+                double b = (hi[i] - o[i]) / d[i];
+                if (a > b) {
+                    double t = a;
+                    a = b;
+                    b = t;
+                }
+                entra = Math.max(entra, a);
+                sai = Math.min(sai, b);
+                if (entra > sai) return -1.0;
+            }
+        }
+        return entra;
     }
 
     private static String tempo(int ticks) {
@@ -753,7 +1020,8 @@ public class NavioEntidade extends Entity {
         blocosDasPecas.clear();
         discard();
         if (jogador != null) {
-            Mensagens.chat(jogador, "Navio desmontado." + (perdidos > 0 ? " " + perdidos + " blocos viraram itens no chão." : ""));
+            Mensagens.chat(jogador, "Navio desmontado: edite à vontade. Para montar de novo, cole o que for novo com a "
+                    + "Cola Naval e clique no Timão." + (perdidos > 0 ? " " + perdidos + " blocos viraram itens no chão." : ""));
         }
     }
 
@@ -816,9 +1084,11 @@ public class NavioEntidade extends Entity {
         int[] lido = entrada.getIntArray("combustivel").orElse(new int[0]);
         combustivel = new int[estrutura.fornalhas];
         System.arraycopy(lido, 0, combustivel, 0, Math.min(lido.length, combustivel.length));
+        alvosPecas = null;
+        prepararMotores();
         calcularAmostras();
         setYRot(rumo);
-        getEntityData().set(DADOS_ANCORA, entrada.getBooleanOr("ancora", false));
+        getEntityData().set(DADOS_ANCORA, entrada.getBooleanOr("ancora", true));
         getEntityData().set(DADOS_RUMO, rumo);
         getEntityData().set(DADOS_ESTRUTURA, estrutura.codificar());
         atualizarCaixa();

@@ -22,6 +22,16 @@ public class FornalhaBlock extends Block {
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
     }
 
+    /** Força de empuxo (blocos por tick) enquanto houver combustível. */
+    public double potencia() {
+        return 0.10;
+    }
+
+    /** Quanto combustível (em ticks de queima) gasta por tick de funcionamento. */
+    public int consumo() {
+        return 1;
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> construtor) {
         construtor.add(FACING, LIT);

@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 /** Desenha cada bloco do navio como um "bloco em movimento" (o mesmo método do bloco em queda). */
 public class NavioRenderer extends EntityRenderer<NavioEntidade, NavioRenderState> {
@@ -36,10 +37,14 @@ public class NavioRenderer extends EntityRenderer<NavioEntidade, NavioRenderStat
         estado.quantos = 0;
         if (!(navio.level() instanceof ClientLevel nivel) || estrutura.blocos().isEmpty()) return;
 
-        double r = Math.toRadians(estado.rumo);
-        double c = Math.cos(r), s = Math.sin(r);
-        var bioma = nivel.getBiome(BlockPos.containing(navio.getX(), navio.getY(), navio.getZ()));
-        BlockPos semente = BlockPos.containing(navio.getX(), navio.getY(), navio.getZ());
+        // Pose suave (o jogo não interpola esta entidade sozinho) e uma única amostra de luz para o
+        // navio todo: assim ele não pisca ao andar nem muda de brilho bloco a bloco.
+        Vec3 pos = navio.posRender(parcial);
+        estado.x = pos.x;
+        estado.y = pos.y;
+        estado.z = pos.z;
+        BlockPos luz = BlockPos.containing(pos.x, pos.y + estrutura.altura + 0.5, pos.z);
+        var bioma = nivel.getBiome(luz);
 
         for (Estrutura.Bloco b : estrutura.blocos()) {
             if (!b.visivel) continue;
@@ -54,11 +59,8 @@ public class NavioRenderer extends EntityRenderer<NavioEntidade, NavioRenderStat
             d.dx = b.dx;
             d.dy = b.dy;
             d.dz = b.dz;
-            double wx = estado.x + b.dx * c + b.dz * s;
-            double wz = estado.z - b.dx * s + b.dz * c;
-            double wy = estado.y + b.dy + 0.5;
-            d.estado.randomSeedPos = semente;
-            d.estado.blockPos = BlockPos.containing(wx, wy, wz);
+            d.estado.randomSeedPos = b.posLocal;
+            d.estado.blockPos = luz;
             d.estado.blockState = bloco;
             d.estado.biome = bioma;
             d.estado.cardinalLighting = nivel.cardinalLighting();

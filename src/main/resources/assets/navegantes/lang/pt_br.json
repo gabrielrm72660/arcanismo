@@ -3,5 +3,8 @@
   "block.navegantes.timao": "Timão",
   "block.navegantes.fornalha_vapor": "Fornalha a Vapor",
   "block.navegantes.vela": "Vela",
-  "item.navegantes.cola_naval": "Cola Naval"
+  "item.navegantes.cola_naval": "Cola Naval",
+  "block.navegantes.assento": "Assento do Piloto",
+  "block.navegantes.motor": "Motor",
+  "item.navegantes.chave_inglesa": "Chave Inglesa"
 }

@@ -14,12 +14,13 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Peça pequena e clicável que acompanha o navio (o Timão e cada Fornalha). O navio inteiro não
+ * Peça pequena e clicável que acompanha o navio (o Timão, cada Assento e cada Motor/Fornalha). O navio inteiro não
  * é "clicável": senão a caixa gigante dele roubaria todos os cliques. Não é salva; o navio recria.
  */
 public class PecaInterativa extends Entity {
     public static final int TIMAO = 0;
     public static final int FORNALHA = 1;
+    public static final int ASSENTO = 2;
 
     private NavioEntidade navio;
     private int tipo;

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.navegantes.bloco.AssentoBlock;
 import br.navegantes.bloco.FornalhaBlock;
 import br.navegantes.bloco.TimaoBlock;
 import br.navegantes.bloco.VelaBlock;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.EmptyBlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
@@ -31,6 +33,9 @@ public final class Estrutura {
         public final BlockState estado;
         public boolean visivel = true;
         public int indiceFornalha = -1;
+        public int indiceAssento = -1;
+        /** Posição local como BlockPos, só para servir de semente de sorteio no desenho. */
+        public final BlockPos posLocal;
         private List<AABB> caixas;
 
         public Bloco(int dx, int dy, int dz, BlockState estado) {
@@ -38,6 +43,7 @@ public final class Estrutura {
             this.dy = dy;
             this.dz = dz;
             this.estado = estado;
+            this.posLocal = new BlockPos(dx, dy, dz);
         }
 
         /** Caixas de colisão em coordenadas locais (célula: x e z de d-0.5 a d+0.5, y de dy a dy+1). */
@@ -57,6 +63,7 @@ public final class Estrutura {
     private final List<Bloco> fornalhasLista = new ArrayList<>();
     private final List<Bloco> casco = new ArrayList<>();
     private final List<Bloco> fundo = new ArrayList<>();
+    private final List<Bloco> assentos = new ArrayList<>();
     private Bloco timao;
 
     public int fornalhas, velas, altura = 1;
@@ -94,8 +101,14 @@ public final class Estrutura {
         return fundo;
     }
 
+    /** O timão (a metade de baixo, se for duplo). */
     public Bloco timao() {
         return timao;
+    }
+
+    /** Assentos, do mais perto do timão para o mais longe; o primeiro é o do piloto. */
+    public List<Bloco> assentos() {
+        return assentos;
     }
 
     public Direction frenteDoTimao() {
@@ -105,6 +118,7 @@ public final class Estrutura {
     /** Recalcula contagens, limites e quais blocos ficam escondidos. Chame depois de adicionar tudo. */
     public void finalizar() {
         fornalhasLista.clear();
+        assentos.clear();
         casco.clear();
         fundo.clear();
         fornalhas = 0;
@@ -123,10 +137,18 @@ public final class Estrutura {
                 fornalhasLista.add(b);
             } else if (bloco instanceof VelaBlock) {
                 velas++;
-            } else if (bloco instanceof TimaoBlock && timao == null) {
-                timao = b;
+            } else if (bloco instanceof AssentoBlock) {
+                assentos.add(b);
+            } else if (bloco instanceof TimaoBlock) {
+                boolean baixo = b.estado.getValue(TimaoBlock.HALF) == DoubleBlockHalf.LOWER;
+                if (timao == null || (baixo && timao.estado.getValue(TimaoBlock.HALF) != DoubleBlockHalf.LOWER)) {
+                    timao = b;
+                }
             }
         }
+        final Bloco ref = timao;
+        assentos.sort((a, c) -> Double.compare(distancia2(a, ref), distancia2(c, ref)));
+        for (int i = 0; i < assentos.size(); i++) assentos.get(i).indiceAssento = i;
         altura = maxY + 1;
         raio = Math.sqrt(r2);
         for (Bloco b : blocos) {
@@ -142,6 +164,12 @@ public final class Estrutura {
             if (aberto) casco.add(b);
         }
         if (casco.isEmpty()) casco.addAll(blocos);
+    }
+
+    private static double distancia2(Bloco a, Bloco ref) {
+        int rx = ref == null ? 0 : ref.dx, ry = ref == null ? 0 : ref.dy, rz = ref == null ? 0 : ref.dz;
+        double dx = a.dx - rx, dy = a.dy - ry, dz = a.dz - rz;
+        return dx * dx + dy * dy + dz * dz;
     }
 
     // ---------- rede (usa os ids de estado da sessão; só vale enquanto o jogo está aberto)

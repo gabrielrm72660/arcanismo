@@ -4,6 +4,7 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 import br.navegantes.Navegantes;
+import br.navegantes.item.ChaveInglesaItem;
 import br.navegantes.item.ColaItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -16,6 +17,9 @@ public final class ModItens {
 
     public static final RegistryObject<Item> COLA_NAVAL =
             registrar("cola_naval", ColaItem::new, p -> p.stacksTo(16));
+
+    public static final RegistryObject<Item> CHAVE_INGLESA =
+            registrar("chave_inglesa", ChaveInglesaItem::new, p -> p.stacksTo(1));
 
     private ModItens() {}
 

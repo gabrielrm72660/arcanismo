@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "navegantes:block/timao"
+    "model": "navegantes:item/timao"
   }
 }

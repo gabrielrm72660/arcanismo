@@ -4,7 +4,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import br.navegantes.Navegantes;
+import br.navegantes.bloco.AssentoBlock;
 import br.navegantes.bloco.FornalhaBlock;
+import br.navegantes.bloco.MotorBlock;
 import br.navegantes.bloco.TimaoBlock;
 import br.navegantes.bloco.VelaBlock;
 import net.minecraft.core.registries.Registries;
@@ -33,6 +35,15 @@ public final class ModBlocos {
     public static final RegistryObject<Block> VELA = registrar("vela", VelaBlock::new,
             () -> BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.8f)
                     .sound(SoundType.WOOL).noOcclusion());
+
+    public static final RegistryObject<Block> MOTOR = registrar("motor", MotorBlock::new,
+            () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(4.0f)
+                    .requiresCorrectToolForDrops().sound(SoundType.METAL)
+                    .lightLevel(s -> s.getValue(BlockStateProperties.LIT) ? 13 : 0));
+
+    public static final RegistryObject<Block> ASSENTO = registrar("assento", AssentoBlock::new,
+            () -> BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1.5f)
+                    .sound(SoundType.WOOD).noOcclusion());
 
     private ModBlocos() {}
 

@@ -15,8 +15,9 @@ import net.minecraftforge.fml.loading.FMLLoader;
  * Navegantes — navios de verdade.
  *  1. Construa a estrutura na água e cole os blocos com a Cola Naval.
  *  2. Coloque o Timão: a estrutura colada vira um navio.
- *  3. Alimente a Fornalha a Vapor com carvão ou erga Velas para ganhar velocidade.
- *  4. Clique no Timão para guiar (W/A/S/D). Ctrl lança ou recolhe a âncora; Shift sai do timão.
+ *  3. Alimente o Motor ou a Fornalha a Vapor com carvão, e/ou erga Velas, para ganhar força.
+ *  4. Sente no Assento (ou clique no Timão). Ctrl solta/lança a âncora: com a âncora solta o navio anda
+ *     sozinho; A/D viram, S freia/dá ré, Shift levanta. A Chave Inglesa devolve o navio a blocos para editar.
  */
 @Mod(Navegantes.MODID)
 public final class Navegantes {
